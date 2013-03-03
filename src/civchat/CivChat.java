@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import civchat.command.Command;
 import civchat.command.CommandHandler;
+import civchat.manager.PlayerManager;
 
 
 public class CivChat extends JavaPlugin
@@ -14,11 +15,13 @@ public class CivChat extends JavaPlugin
 	private Logger log;
 	private CivChat instance;
 	private CommandHandler commandHandler;
+	private PlayerManager playerManager;
 	
 	public void onEnable() 
 	{
 		this.instance = this;
 		this.commandHandler = new CommandHandler();
+		this.playerManager = PlayerManager.getInstance();
 		this.log = this.getLogger();
 		this.log.info("CivChat has been enabled.");
 	}
@@ -37,4 +40,5 @@ public class CivChat extends JavaPlugin
 	{
 		return commandHandler.dispatch(sender, label, args);		
 	}
+	
 }
