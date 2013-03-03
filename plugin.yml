@@ -1,0 +1,10 @@
+name: CivChat
+main: civchat.CivChat
+version: 1.0
+description: Realistic Chat
+author: Gu3rr1lla
+database: false
+commands:
+  ccantenna:
+    description: Creates an antenna
+    usage: /ccantenna
