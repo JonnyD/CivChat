@@ -26,7 +26,13 @@ public class PlayerManager {
 	
 	public CivPlayer getCivPlayer(String playerName)
 	{
-		return this.civPlayers.get(playerName);
+		return this.civPlayers.get(playerName.toLowerCase());
+	}
+	
+	public CivPlayer getCivPlayer(Player player)
+	{
+		String playerName = player.getDisplayName().toLowerCase();
+		return this.getCivPlayer(playerName);
 	}
 	
 	public void addCivPlayer(CivPlayer civPlayer)
@@ -36,8 +42,14 @@ public class PlayerManager {
 		this.civPlayers.put(playerName, civPlayer);
 	}
 	
-	public void removeCivPlayer(CivPlayer civPlayer)
+	public void removeCivPlayer(String playerName)
 	{
-		this.civPlayers.remove(civPlayer.getPlayer().getDisplayName().toLowerCase());
+		this.civPlayers.remove(playerName.toLowerCase());
+	}
+	
+	public void removeCivPlayer(Player player)
+	{
+		String playerName = player.getDisplayName().toLowerCase();
+		this.removeCivPlayer(playerName);
 	}
 }
