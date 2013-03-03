@@ -7,16 +7,23 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class CivChat extends JavaPlugin
 {
-	private static Logger log;
+	private Logger log;
+	private CivChat instance;
 	
 	public void onEnable() 
 	{
-		log = this.getLogger();
-		log.info("CivChat has been enabled.");
+		this.instance = this;
+		this.log = this.getLogger();
+		this.log.info("CivChat has been enabled.");
 	}
 	
 	public void onDisable()
 	{
-		log.info("CivChat has been disabled");
+		this.log.info("CivChat has been disabled");
+	}
+	
+	public CivChat getInstance() 
+	{
+		return this.instance;
 	}
 }
