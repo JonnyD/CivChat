@@ -1,15 +1,11 @@
 package civchat.command.commands;
 
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.block.BlockPlaceEvent;
 
 import civchat.command.PlayerCommand;
+import civchat.manager.PlayerManager;
+import civchat.model.CivPlayer;
+import civchat.model.Mode;
 
 public class CreateAntenna extends PlayerCommand
 {
@@ -25,6 +21,11 @@ public class CreateAntenna extends PlayerCommand
 
 	@Override
 	public boolean execute(CommandSender sender, String[] args) {
+		String playerName = sender.getName();
+		
+		PlayerManager playerManager = PlayerManager.getInstance();
+		CivPlayer civPlayer = playerManager.getCivPlayer(playerName);
+		civPlayer.setMode(Mode.CREATE_ANTENNA);
 		
 		return true;
 	}
