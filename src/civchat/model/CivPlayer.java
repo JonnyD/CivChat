@@ -1,11 +1,11 @@
 package civchat.model;
 
-public class Player
+public class CivPlayer
 {
 
 	private Mode mode;
 	
-	public Player(){}
+	public CivPlayer(){}
 	
 	public Mode getMode()
 	{
