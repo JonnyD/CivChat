@@ -27,7 +27,7 @@ public abstract class PlayerCommand implements Command
 		return this.usage;
 	}
 
-	public String getIdentifiers() {
+	public String getIdentifier() {
 		return this.identifier;
 	}
 
