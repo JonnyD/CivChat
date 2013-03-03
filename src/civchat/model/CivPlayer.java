@@ -1,11 +1,17 @@
 package civchat.model;
 
+import org.bukkit.entity.Player;
+
 public class CivPlayer
 {
 
+	private final Player player;
 	private Mode mode;
 	
-	public CivPlayer(){}
+	public CivPlayer(Player player)
+	{
+		this.player = player;
+	}
 	
 	public Mode getMode()
 	{
@@ -15,5 +21,10 @@ public class CivPlayer
 	public void setMode(Mode mode)
 	{
 		this.mode = mode;
+	}
+	
+	public Player getPlayer()
+	{
+		return this.player;
 	}
 }
