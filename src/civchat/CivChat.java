@@ -3,11 +3,14 @@ package civchat;
 import java.util.logging.Logger;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import civchat.command.Command;
 import civchat.command.CommandHandler;
 import civchat.command.commands.CreateAntenna;
+import civchat.listener.BlockListener;
+import civchat.listener.PlayerListener;
 
 
 public class CivChat extends JavaPlugin
@@ -21,6 +24,7 @@ public class CivChat extends JavaPlugin
 		this.instance = this;
 		this.commandHandler = new CommandHandler();
 		this.registerCommands();
+		this.registerEvents();
 		this.log = this.getLogger();
 		this.log.info("CivChat has been enabled.");
 	}
@@ -44,4 +48,11 @@ public class CivChat extends JavaPlugin
 	{
 		this.commandHandler.addCommand(new CreateAntenna());
 	}	
+	
+	public void registerEvents()
+	{
+		PluginManager pm = getServer().getPluginManager();
+		pm.registerEvents(new BlockListener(), this);
+		pm.registerEvents(new PlayerListener(), this);
+	}
 }
