@@ -38,5 +38,40 @@ public abstract class PlayerCommand implements Command
 	public int getMaxArguments() {
 		return this.maxArguments;
 	}
+	
+	public void setArgumentRange(int min, int max)
+	{
+		this.minArguments = min;
+		this.maxArguments = max;
+	}
+	
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	
+	public void setDescription(String description)
+	{
+		this.description = description;
+	}
 
+	public void setUsage(String usage)
+	{
+		this.usage = usage;
+	}
+	
+	public void setIdentifier(String identifier)
+	{
+		this.identifier = identifier;
+	}
+	
+	public void setMinArguments(int minArguments)
+	{
+		this.minArguments = minArguments;
+	}
+	
+	public void setMaxArguments(int maxArguments)
+	{
+		this.maxArguments = maxArguments;
+	}
 }
