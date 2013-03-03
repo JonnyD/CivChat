@@ -9,7 +9,7 @@ public abstract class PlayerCommand implements Command
 	private String usage = "";
 	private int minArguments = 0;
 	private int maxArguments = 0;
-	private String[] identifiers = new String[0];
+	private String identifier = "";
 
 	public PlayerCommand(String name) {
 		this.name = name;
@@ -27,8 +27,8 @@ public abstract class PlayerCommand implements Command
 		return this.usage;
 	}
 
-	public String[] getIdentifiers() {
-		return this.identifiers;
+	public String getIdentifiers() {
+		return this.identifier;
 	}
 
 	public int getMinArguments() {

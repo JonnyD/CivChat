@@ -8,7 +8,7 @@ public interface Command
 	public String getName();
 	public String getDescription();
 	public String getUsage();
-	public String[] getIdentifiers();
+	public String getIdentifier();
 	public int getMinArguments();
 	public int getMaxArguments();
 }
