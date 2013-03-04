@@ -1,5 +1,6 @@
 package civchat.listener;
 
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,6 +11,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import civchat.manager.PlayerManager;
 import civchat.model.CivPlayer;
 import civchat.model.Mode;
+import civchat.utility.Utility;
 
 public class PlayerListener implements Listener
 {
@@ -33,12 +35,12 @@ public class PlayerListener implements Listener
 	public void interact(PlayerInteractEvent event)
 	{
 		if(!event.hasBlock()){return;}
+
+		Block block = event.getClickedBlock();
 		
-		Player player = event.getPlayer();
-		String playerName = player.getDisplayName().toLowerCase();
-		
+		Player player = event.getPlayer();		
 		PlayerManager playerManager = PlayerManager.getInstance();
-		CivPlayer civPlayer = playerManager.getCivPlayer(playerName);
+		CivPlayer civPlayer = playerManager.getCivPlayer(player);
 		
 		if(civPlayer != null)
 		{
@@ -48,7 +50,15 @@ public class PlayerListener implements Listener
 				case NORMAL:
 					return;
 				case CREATE_ANTENNA:
-					System.out.println("created antenna!");
+					Boolean canBeAntenna = Utility.canBeAntenna(block);
+					if(canBeAntenna)
+					{
+						System.out.println("antenna created");
+					}
+					else
+					{
+						System.out.println("not possible to create an antenna here");
+					}
 					civPlayer.reset();
 			}
 		}
