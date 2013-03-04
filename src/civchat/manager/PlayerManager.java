@@ -37,8 +37,7 @@ public class PlayerManager
 	
 	public CivPlayer getOrCreateCivPlayer(Player player)
 	{
-		String playerName = player.getDisplayName().toLowerCase();
-		CivPlayer civPlayer = this.getCivPlayer(playerName);
+		CivPlayer civPlayer = this.getCivPlayer(player);
 		if(civPlayer == null)
 		{
 			civPlayer = new CivPlayer(player);
