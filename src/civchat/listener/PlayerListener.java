@@ -52,6 +52,7 @@ public class PlayerListener implements Listener
 					return;
 				case CREATE_ANTENNA:
 					System.out.println("created antenna!");
+					civPlayer.reset();
 			}
 		}
 	}
