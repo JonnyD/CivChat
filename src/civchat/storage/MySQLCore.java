@@ -10,7 +10,6 @@ import civchat.CivChat;
  */
 public class MySQLCore implements DBCore
 {
-	private CivChat plugin;
     private Logger log;
     private Connection connection;
     private String host;
@@ -33,7 +32,6 @@ public class MySQLCore implements DBCore
         this.username = username;
         this.password = password;
         this.log = CivChat.getLog();
-        this.plugin = CivChat.getInstance();
     }
 
     private void initialize()
