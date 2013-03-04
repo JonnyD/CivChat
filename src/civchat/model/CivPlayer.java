@@ -11,6 +11,11 @@ public class CivPlayer
 	public CivPlayer(Player player)
 	{
 		this.player = player;
+		reset();
+	}
+	
+	public void reset()
+	{
 		this.mode = Mode.NORMAL;
 	}
 	
