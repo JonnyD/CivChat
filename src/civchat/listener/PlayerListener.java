@@ -20,7 +20,8 @@ public class PlayerListener implements Listener
 	{
 		Player player = event.getPlayer();
 		PlayerManager playerManager = PlayerManager.getInstance();
-		playerManager.getOrCreateCivPlayer(player);
+		CivPlayer civPlayer = playerManager.getOrCreateCivPlayer(player);
+		playerManager.addCivPlayer(civPlayer);
 	}
 	
 	@EventHandler
@@ -37,8 +38,8 @@ public class PlayerListener implements Listener
 		if(!event.hasBlock()){return;}
 
 		Block block = event.getClickedBlock();
-		
 		Player player = event.getPlayer();		
+		
 		PlayerManager playerManager = PlayerManager.getInstance();
 		CivPlayer civPlayer = playerManager.getCivPlayer(player);
 		
@@ -50,7 +51,7 @@ public class PlayerListener implements Listener
 				case NORMAL:
 					return;
 				case CREATE_ANTENNA:
-					Boolean canBeAntenna = Utility.canBeAntenna(block);
+					boolean canBeAntenna = Utility.canBeAntenna(block);
 					if(canBeAntenna)
 					{
 						System.out.println("antenna created");

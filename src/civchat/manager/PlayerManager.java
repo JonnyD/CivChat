@@ -8,7 +8,8 @@ import org.bukkit.entity.Player;
 
 import civchat.model.CivPlayer;
 
-public class PlayerManager {
+public class PlayerManager 
+{
 
 	private static final PlayerManager instance = new PlayerManager();
 	private Map<String, CivPlayer> civPlayers = null;
