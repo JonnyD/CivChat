@@ -15,8 +15,8 @@ import civchat.listener.PlayerListener;
 
 public class CivChat extends JavaPlugin
 {
-	private Logger log;
-	private CivChat instance;
+	private static Logger log;
+	private static CivChat instance;
 	private CommandHandler commandHandler;
 	
 	public void onEnable() 
@@ -34,9 +34,9 @@ public class CivChat extends JavaPlugin
 		this.log.info("CivChat has been disabled");
 	}
 	
-	public CivChat getInstance() 
+	public static CivChat getInstance() 
 	{
-		return this.instance;
+		return instance;
 	}
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
