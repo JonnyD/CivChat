@@ -11,31 +11,38 @@ public abstract class PlayerCommand implements Command
 	private int maxArguments = 0;
 	private String identifier = "";
 
-	public PlayerCommand(String name) {
+	public PlayerCommand(String name) 
+	{
 		this.name = name;
 	}
 
-	public String getName() {
+	public String getName() 
+	{
 		return this.name;
 	}
 
-	public String getDescription() {
+	public String getDescription() 
+	{
 		return this.description;
 	}
 
-	public String getUsage() {
+	public String getUsage() 
+	{
 		return this.usage;
 	}
 
-	public String getIdentifier() {
+	public String getIdentifier() 
+	{
 		return this.identifier;
 	}
 
-	public int getMinArguments() {
+	public int getMinArguments() 
+	{
 		return this.minArguments;
 	}
 
-	public int getMaxArguments() {
+	public int getMaxArguments() 
+	{
 		return this.maxArguments;
 	}
 	
