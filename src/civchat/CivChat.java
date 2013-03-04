@@ -2,11 +2,11 @@ package civchat;
 
 import java.util.logging.Logger;
 
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import civchat.command.Command;
 import civchat.command.CommandHandler;
 import civchat.command.commands.CreateAntenna;
 import civchat.listener.BlockListener;
@@ -39,9 +39,8 @@ public class CivChat extends JavaPlugin
 		return this.instance;
 	}
 	
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
-	{
-		return commandHandler.dispatch(sender, label, args);		
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		return this.commandHandler.dispatch(sender, label, args);
 	}
 	
 	public void registerCommands()
