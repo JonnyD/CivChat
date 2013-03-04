@@ -10,14 +10,15 @@ import civchat.CivChat;
 
 public class ConfigManager 
 {
-
 	private CivChat plugin;
 	
-	private String host;
-	private String database;
+	private String driver;
+	private String url;
 	private String username;
 	private String password;
-	private int port;
+	private boolean isolation;
+	private boolean logging;
+	private boolean rebuild;
 	
 	private File main;
 	private FileConfiguration config;
@@ -53,11 +54,13 @@ public class ConfigManager
             config.options().copyDefaults(true);
         }
         
-        host = loadString("mysql.localhost");
-        port = loadInt("mysql.port");
-        database = loadString("mysql.database");
-        username = loadString("mysql.username");
-        password = loadString("mysql.password");
+        driver    = loadString("database.driver");
+        url       = loadString("database.url");
+        username  = loadString("database.username");
+        password  = loadString("database.password");
+        isolation = loadBoolean("database.isolation");
+        logging   = loadBoolean("database.logging");
+        rebuild   = loadBoolean("database.rebuild");
         
         save();
 	}
@@ -125,37 +128,90 @@ public class ConfigManager
 		return plugin;
 	}
 
-	public String getHost() {
-		return host;
+	public String getDriver() {
+		return driver;
 	}
 
-	public String getDatabase() {
-		return database;
+	public void setDriver(String driver) {
+		this.driver = driver;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public String getUsername() {
 		return username;
 	}
 
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public String getPassword() {
 		return password;
 	}
 
-	public int getPort() {
-		return port;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public boolean isIsolation() {
+		return isolation;
+	}
+
+	public void setIsolation(boolean isolation) {
+		this.isolation = isolation;
+	}
+
+	public boolean isLogging() {
+		return logging;
+	}
+
+	public void setLogging(boolean logging) {
+		this.logging = logging;
+	}
+
+	public boolean isRebuild() {
+		return rebuild;
+	}
+
+	public void setRebuild(boolean rebuild) {
+		this.rebuild = rebuild;
 	}
 
 	public File getMain() {
 		return main;
 	}
 
+	public void setMain(File main) {
+		this.main = main;
+	}
+
 	public FileConfiguration getConfig() {
 		return config;
+	}
+
+	public void setConfig(FileConfiguration config) {
+		this.config = config;
 	}
 
 	public FileConfiguration getCleanConfig() {
 		return cleanConfig;
 	}
-    
+
+	public void setCleanConfig(FileConfiguration cleanConfig) {
+		this.cleanConfig = cleanConfig;
+	}
+
+	public void setPlugin(CivChat plugin) {
+		this.plugin = plugin;
+	}
+
+	
     
 }
