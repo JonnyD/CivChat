@@ -1,8 +1,7 @@
 package civchat.manager;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.bukkit.entity.Player;
@@ -33,6 +32,22 @@ public class PlayerManager {
 	{
 		String playerName = player.getDisplayName().toLowerCase();
 		return this.getCivPlayer(playerName);
+	}
+	
+	public CivPlayer getOrCreateCivPlayer(Player player)
+	{
+		String playerName = player.getDisplayName().toLowerCase();
+		CivPlayer civPlayer = this.getCivPlayer(playerName);
+		if(civPlayer == null)
+		{
+			civPlayer = new CivPlayer(player);
+		}
+		return civPlayer;
+	}
+	
+	public Collection<CivPlayer> getCivPlayers()
+	{
+		return this.civPlayers.values();
 	}
 	
 	public void addCivPlayer(CivPlayer civPlayer)
