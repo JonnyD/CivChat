@@ -25,7 +25,7 @@ public class CivChat extends JavaPlugin
 		this.commandHandler = new CommandHandler();
 		this.registerCommands();
 		this.registerEvents();
-		this.log = this.getLogger();
+		this.log = Logger.getLogger("CivChat");
 		this.log.info("CivChat has been enabled.");
 	}
 	
