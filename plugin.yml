@@ -6,5 +6,6 @@ author: Gu3rr1lla
 database: false
 commands:
   ccantenna:
+    aliases: cca
     description: Creates an antenna
     usage: /ccantenna
