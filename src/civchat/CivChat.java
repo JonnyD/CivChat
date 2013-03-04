@@ -13,6 +13,7 @@ import civchat.listener.BlockListener;
 import civchat.listener.PlayerListener;
 import civchat.manager.AntennaManager;
 import civchat.manager.ConfigManager;
+import civchat.manager.StorageManager;
 import civchat.storage.DAO;
 
 
@@ -24,13 +25,17 @@ public class CivChat extends JavaPlugin
 	private CommandHandler commandHandler;
 	private ConfigManager configManager;
 	private AntennaManager antennaManager;
+	private StorageManager storageManager;
 	
 	public void onEnable() 
 	{
 		instance = this;
+		
+		dao = new DAO();
 		commandHandler = new CommandHandler();
 		configManager = new ConfigManager();
 		antennaManager = new AntennaManager();
+		storageManager = new StorageManager(dao);
 		
 		registerCommands();
 		registerEvents();
