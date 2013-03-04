@@ -30,10 +30,10 @@ public class CivChat extends JavaPlugin
 	public void onEnable() 
 	{
 		instance = this;
-		
-		dao = new DAO();
+
+		configManager  = new ConfigManager();
+		dao            = new DAO();
 		commandHandler = new CommandHandler();
-		configManager = new ConfigManager();
 		antennaManager = new AntennaManager();
 		storageManager = new StorageManager(dao);
 		
