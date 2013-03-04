@@ -3,10 +3,16 @@ package civchat.utility;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Player;
 
-public class Utility {
+import civchat.manager.PlayerManager;
+import civchat.model.CivPlayer;
 
-	public static boolean canBeAntenna(Block block) {
+public class Utility 
+{
+
+	public static boolean canBeAntenna(Block block) 
+	{
 		// Get the blocks material relative to the block placed by the player
 		Material main = block.getType();
 		Material up1 = block.getRelative(BlockFace.UP, 1).getType();
@@ -23,14 +29,16 @@ public class Utility {
 		String regex = "DIJ..|I.DJ.|..IDJ";
 
 		// Check if the first letters of the materials match the regex pattern
-		if (materialFirstLetters.matches(regex)) {
+		if (materialFirstLetters.matches(regex)) 
+		{
 			return true;
 		}
 		
 		return false;
 	}
 	
-	private static String first(String text) {
+	private static String first(String text) 
+	{
 		return text.substring(0, 1);
 	}
 }
