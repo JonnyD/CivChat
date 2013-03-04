@@ -11,6 +11,7 @@ public class CivPlayer
 	public CivPlayer(Player player)
 	{
 		this.player = player;
+		this.mode = Mode.NORMAL;
 	}
 	
 	public Mode getMode()
