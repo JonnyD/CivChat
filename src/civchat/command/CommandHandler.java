@@ -24,6 +24,7 @@ public class CommandHandler
 					|| args.length > command.getMaxArguments()) 
 			{
 				this.displayCommandHelp(command, sender);
+				return true;
 			}
 			command.execute(sender, args);
 		}
