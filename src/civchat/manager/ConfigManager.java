@@ -16,7 +16,7 @@ public class ConfigManager
 	private String url;
 	private String username;
 	private String password;
-	private boolean isolation;
+	private String isolation;
 	private boolean logging;
 	private boolean rebuild;
 	
@@ -58,7 +58,7 @@ public class ConfigManager
         url       = loadString("database.url");
         username  = loadString("database.username");
         password  = loadString("database.password");
-        isolation = loadBoolean("database.isolation");
+        isolation = loadString("database.isolation");
         logging   = loadBoolean("database.logging");
         rebuild   = loadBoolean("database.rebuild");
         
@@ -160,11 +160,11 @@ public class ConfigManager
 		this.password = password;
 	}
 
-	public boolean isIsolation() {
+	public String getIsolation() {
 		return isolation;
 	}
 
-	public void setIsolation(boolean isolation) {
+	public void setIsolation(String isolation) {
 		this.isolation = isolation;
 	}
 
