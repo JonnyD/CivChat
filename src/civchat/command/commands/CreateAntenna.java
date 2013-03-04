@@ -20,12 +20,24 @@ public class CreateAntenna extends PlayerCommand
 	}
 
 	@Override
-	public boolean execute(CommandSender sender, String[] args) {
+	public boolean execute(CommandSender sender, String[] args) 
+	{
 		String playerName = sender.getName();
 		
 		PlayerManager playerManager = PlayerManager.getInstance();
 		CivPlayer civPlayer = playerManager.getCivPlayer(playerName);
-		civPlayer.setMode(Mode.CREATE_ANTENNA);
+		
+		Mode mode = civPlayer.getMode();
+		if(mode == Mode.CREATE_ANTENNA)
+		{
+			civPlayer.reset();
+			sender.sendMessage("Antenna Creation Mode Off");
+		}
+		else 
+		{
+			civPlayer.setMode(Mode.CREATE_ANTENNA);
+			sender.sendMessage("Antenna Creation Mode On");
+		}
 		
 		return true;
 	}
