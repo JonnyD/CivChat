@@ -1,7 +1,9 @@
-mysql:
-    username: ''
-    host: localhost
-    enable: false
-    password: ''
-    database: minecraft
-    port: 3306
+database:
+  driver: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/bukkit
+  username: bukkit
+  password: ''
+  isolation: SERIALIZABLE
+  logging: false
+  rebuild: false
+  enablefilelog: false
