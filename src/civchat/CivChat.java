@@ -15,18 +15,19 @@ import civchat.listener.PlayerListener;
 
 public class CivChat extends JavaPlugin
 {
-	private static Logger log;
 	private static CivChat instance;
+	private static Logger log = Logger.getLogger("CivChat");
 	private CommandHandler commandHandler;
 	
 	public void onEnable() 
 	{
-		this.instance = this;
-		this.commandHandler = new CommandHandler();
-		this.registerCommands();
-		this.registerEvents();
-		this.log = Logger.getLogger("CivChat");
-		this.log.info("CivChat has been enabled.");
+		instance = this;
+		commandHandler = new CommandHandler();
+		
+		registerCommands();
+		registerEvents();
+		
+		log.info("CivChat has been enabled.");
 	}
 	
 	public void onDisable()
@@ -37,6 +38,11 @@ public class CivChat extends JavaPlugin
 	public static CivChat getInstance() 
 	{
 		return instance;
+	}
+	
+	public static Logger getLog()
+	{
+		return log;
 	}
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
