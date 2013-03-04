@@ -13,12 +13,14 @@ import civchat.listener.BlockListener;
 import civchat.listener.PlayerListener;
 import civchat.manager.AntennaManager;
 import civchat.manager.ConfigManager;
+import civchat.storage.DAO;
 
 
 public class CivChat extends JavaPlugin
 {
 	private static CivChat instance;
 	private static Logger log = Logger.getLogger("CivChat");
+	private DAO dao;
 	private CommandHandler commandHandler;
 	private ConfigManager configManager;
 	private AntennaManager antennaManager;
@@ -65,6 +67,11 @@ public class CivChat extends JavaPlugin
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(new BlockListener(), this);
 		pm.registerEvents(new PlayerListener(), this);
+	}
+	
+	public DAO getDAO()
+	{
+		return this.dao;
 	}
 	
 	public ConfigManager getConfigManager()
