@@ -32,10 +32,7 @@ public class PlayerListener implements Listener
 	@EventHandler
 	public void interact(PlayerInteractEvent event)
 	{
-		if(!event.hasBlock())
-		{
-			return;
-		}
+		if(!event.hasBlock()){return;}
 		
 		Player player = event.getPlayer();
 		String playerName = player.getDisplayName().toLowerCase();
