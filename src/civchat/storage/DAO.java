@@ -8,10 +8,10 @@ import java.util.logging.Logger;
 import civchat.CivChat;
 import civchat.manager.ConfigManager;
 
-public class MySQL extends DB
+public class DAO extends DB
 {	
 	private CivChat plugin;
-	public MySQL() {
+	public DAO() {
         super(CivChat.getInstance());
         
         plugin = CivChat.getInstance();
