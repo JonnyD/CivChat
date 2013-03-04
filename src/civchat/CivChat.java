@@ -11,6 +11,8 @@ import civchat.command.CommandHandler;
 import civchat.command.commands.CreateAntenna;
 import civchat.listener.BlockListener;
 import civchat.listener.PlayerListener;
+import civchat.manager.AntennaManager;
+import civchat.manager.ConfigManager;
 
 
 public class CivChat extends JavaPlugin
@@ -18,11 +20,15 @@ public class CivChat extends JavaPlugin
 	private static CivChat instance;
 	private static Logger log = Logger.getLogger("CivChat");
 	private CommandHandler commandHandler;
+	private ConfigManager configManager;
+	private AntennaManager antennaManager;
 	
 	public void onEnable() 
 	{
 		instance = this;
 		commandHandler = new CommandHandler();
+		configManager = new ConfigManager();
+		antennaManager = new AntennaManager();
 		
 		registerCommands();
 		registerEvents();
@@ -59,5 +65,15 @@ public class CivChat extends JavaPlugin
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(new BlockListener(), this);
 		pm.registerEvents(new PlayerListener(), this);
+	}
+	
+	public ConfigManager getConfigManager()
+	{
+		return this.configManager;
+	}
+	
+	public AntennaManager getAntennaManager()
+	{
+		return this.antennaManager;
 	}
 }
