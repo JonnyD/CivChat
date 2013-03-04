@@ -27,7 +27,7 @@ public class CommandHandler
 			}
 			command.execute(sender, args);
 		}
-		return false;
+		return true;
 	}
 
 	public void displayCommandHelp(Command command, CommandSender sender) 
