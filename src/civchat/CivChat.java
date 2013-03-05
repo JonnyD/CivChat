@@ -22,17 +22,17 @@ public class CivChat extends JavaPlugin
 	private static Logger log = Logger.getLogger("CivChat");
 	private CommandHandler commandHandler;
 	private ConfigManager configManager;
-	private AntennaManager antennaManager;
 	private StorageManager storageManager;
+	private AntennaManager antennaManager;
 	
 	public void onEnable() 
 	{
 		instance = this;
 
 		configManager  = new ConfigManager();
+		storageManager = new StorageManager();
 		commandHandler = new CommandHandler();
 		antennaManager = new AntennaManager();
-		storageManager = new StorageManager();
 		
 		registerCommands();
 		registerEvents();
