@@ -1,30 +1,25 @@
 package civchat.manager;
 
-import java.util.HashSet;
-import java.util.Set;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 
+import civchat.CivChat;
 import civchat.model.Antenna;
 
 public class AntennaManager 
 {
-	private Set<Antenna> antennas = new HashSet<Antenna>();
+	private CivChat plugin;
+	private StorageManager storageManager;
 	
 	public AntennaManager()
 	{
+		this.plugin = CivChat.getInstance();
+		this.storageManager = plugin.getStorageManager();
 	}
 	
-	public void addAntenna(Antenna antenna)
+	public void recordAntennaPlace(Player player, Block block)
 	{
-		this.antennas.add(antenna);
-	}
-	
-	public void removeAntenna(Antenna antenna)
-	{
-		this.antennas.remove(antenna);
-	}
-	
-	public Set<Antenna> getAntennas()
-	{
-		return this.antennas;
+		Antenna antenna = new Antenna(block.getX(), block.getY(), block.getZ());
+		storageManager.offerAntenna(antenna);
 	}
 }
