@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import civchat.CivChat;
 import civchat.model.Antenna;
+import civchat.model.Network;
 import civchat.storage.DB;
 import civchat.storage.MySQL;
 
@@ -43,6 +44,13 @@ public class StorageManager
 				String query = "CREATE TABLE IF NOT EXISTS `cc_antenna` (`id` integer NOT NULL auto_increment, `x` integer NOT NULL, `y` integer NOT NULL, `z` integer NOT NULL, `owner` varchar(100) NOT NULL, PRIMARY KEY(`id`));";
 				db.execute(query);
 			}
+			
+			if(!db.existsTable("cc_network"))
+			{
+				log.info("Creating table: cc_network");
+				String query = "CREATE TABLE IF NOT EXISTS `cc_network` (`id` integer NOT NULL auto_increment, `name` varchar(100), `owner` varchar(100), PRIMARY KEY(`id`));";
+				db.execute(query);
+			}
 		}
 	}
 	
@@ -51,6 +59,17 @@ public class StorageManager
 		String query = "INSERT INTO `cc_antenna` (`x`, `y`, `z`, `owner`)";
 		String values = "VALUES (" + antenna.getX() + ", " + antenna.getY() + ", " + antenna.getZ() + ", '" + antenna.getOwner() + "')";	
 	
+		synchronized (this)
+		{
+			db.insert(query + values);
+		}
+	}
+	
+	public void offerNetwork(Network network)
+	{
+		String query = "INSERT INTO `cc_network` (`name`, `owner`)";
+		String values = "VALUES ('" + network.getName() + "', '" + network.getOwner() + "')";
+		
 		synchronized (this)
 		{
 			db.insert(query + values);
