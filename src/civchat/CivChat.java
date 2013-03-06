@@ -10,6 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import civchat.command.CommandHandler;
 import civchat.command.commands.CreateAntenna;
 import civchat.listener.BlockListener;
+import civchat.listener.ChatListener;
 import civchat.listener.PlayerListener;
 import civchat.manager.AntennaManager;
 import civchat.manager.ConfigManager;
@@ -69,6 +70,7 @@ public class CivChat extends JavaPlugin
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(new BlockListener(), this);
 		pm.registerEvents(new PlayerListener(), this);
+		pm.registerEvents(new ChatListener(), this);
 	}
 	
 	public ConfigManager getConfigManager()
