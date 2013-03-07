@@ -24,19 +24,28 @@ public class Antenna
 	
 	public Antenna(int x, int y, int z, String owner)
 	{
-		this.x = x;
-		this.y = y;
-		this.z = z;
+		this.x     = x;
+		this.y     = y;
+		this.z     = z;
+		this.owner = owner;
+	}
+	
+	public Antenna(int id, int x, int y, int z, String owner)
+	{
+		this.id    = id;
+		this.x     = x;
+		this.y     = y;
+		this.z     = z;
 		this.owner = owner;
 	}
 	
 	public Antenna(int id, int x, int y, int z, String owner, String network)
 	{
-		this.id = id;
-		this.x = x;
-		this.y = y;
-		this.z = z;
-		this.owner = owner;
+		this.id      = id;
+		this.x       = x;
+		this.y       = y;
+		this.z       = z;
+		this.owner   = owner;
 		this.network = network;
 	}
 	
