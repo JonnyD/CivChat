@@ -43,6 +43,17 @@ public class AntennaManager
 	public void recordAntennaNetwork(CivPlayer civPlayer, Antenna antenna)
 	{
 		antenna.setNetwork(civPlayer.getNetwork());
+		updateAntenna(antenna);
+	}
+	
+	public void recordAntennaDamage(Antenna antenna)
+	{
+		antenna.setDamaged(true);
+		updateAntenna(antenna);
+	}
+	
+	public void updateAntenna(Antenna antenna)
+	{
 		storageManager.updateAntenna(antenna);
 	}
 	
@@ -110,7 +121,7 @@ public class AntennaManager
 	
 	public Antenna getAntenna(Location location)
 	{
-		return null;
+		return storageManager.findAntenna(location);
 	}
 	
 	private String first3Letters(String text)
