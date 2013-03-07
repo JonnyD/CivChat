@@ -88,10 +88,12 @@ public class StorageManager
 			subQuery += "damaged = " + antenna.isDamaged();
 		}
 
+		System.out.println("test");
 		if (!subQuery.isEmpty())
 		{
 			String query = "UPDATE `cc_antenna` SET " + subQuery + " WHERE x = " + antenna.getX() + " AND y = " + antenna.getY() + " AND z = " + antenna.getZ() + " AND owner = '" + antenna.getOwner() + "';";
 			db.execute(query);
+			System.out.println("test2");
 		}
 
 		antenna.clearDirty();
@@ -101,7 +103,7 @@ public class StorageManager
 	{
 		Antenna antenna = null;
 
-		String query  = "SELECT * FROM `cc_antenna` WHERE x = " + (int) location.getX() + ", y = " + (int) location.getY() + ", z = " + (int) location.getY();
+		String query  = "SELECT * FROM `cc_antenna` WHERE x = " + (int) location.getX() + " AND y = " + (int) location.getY() + " AND z = " + (int) location.getZ() + ";";
 		ResultSet res = db.select(query);
 		if(res != null)
 		{
