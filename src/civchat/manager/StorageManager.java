@@ -1,6 +1,7 @@
 package civchat.manager;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Logger;
 
 import org.bukkit.Location;
@@ -94,29 +95,37 @@ public class StorageManager
 	
 	public Antenna findAntenna(Location location)
 	{
-		String query = "SELECT * FROM `cc_antenna`";
-		ResultSet res = db.select(query);
 		Antenna antenna = null;
+		
+		String query  = "SELECT * FROM `cc_antenna`";
+		ResultSet res = db.select(query);
 		if(res != null)
 		{
 			try
 			{
 				while(res.next())
 				{
-					int id       = res.getInt("id");
-					int x        = res.getInt("x");
-					int y        = res.getInt("y");
-					int z        = res.getInt("z");
-					String owner = res.getString("owner");
-					
-					antenna = new Antenna(id, x, y, z, owner);
+					try {
+						int id       = res.getInt("id");
+						int x        = res.getInt("x");
+						int y        = res.getInt("y");
+						int z        = res.getInt("z");
+						String owner = res.getString("owner");
+						
+						antenna = new Antenna(id, x, y, z, owner);
+					}
+					catch (Exception ex)
+					{
+						log.info(ex.getMessage());
+					}
 				}
 			}
-			catch (Exception ex)
+			catch (SQLException ex)
 			{
-				log.info(ex.getMessage());
+				log.severe(ex.getMessage());
 			}
 		}
+		
 		return antenna;
 	}
 	
