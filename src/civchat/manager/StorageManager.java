@@ -56,7 +56,7 @@ public class StorageManager
 		}
 	}
 	
-	public void offerAntenna(Antenna antenna)
+	public void insertAntenna(Antenna antenna)
 	{
 		String query  = "INSERT INTO `cc_antenna` (`x`, `y`, `z`, `owner`)";
 		String values = "VALUES (" + antenna.getX() + ", " + antenna.getY() + ", " + antenna.getZ() + ", '" + antenna.getOwner() + "')";	
@@ -89,7 +89,7 @@ public class StorageManager
         antenna.clearDirty();
 	}
 	
-	public void offerNetwork(Network network)
+	public void insertNetwork(Network network)
 	{
 		String query  = "INSERT INTO `cc_network` (`name`, `owner`)";
 		String values = "VALUES ('" + network.getName() + "', '" + network.getOwner() + "')";
