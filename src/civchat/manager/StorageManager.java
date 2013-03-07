@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import civchat.CivChat;
 import civchat.model.Antenna;
 import civchat.model.Antenna.DirtyAntennaReason;
+import civchat.model.Network.DirtyNetworkReason;
 import civchat.model.Network;
 import civchat.storage.DB;
 import civchat.storage.MySQL;
@@ -70,18 +71,6 @@ public class StorageManager
 	{
 		String subQuery = "";
 		
-		if(antenna.isDirty(DirtyAntennaReason.X))
-		{
-			subQuery += "x = " + antenna.getX() + ", ";
-		}
-		if(antenna.isDirty(DirtyAntennaReason.Y))
-		{
-			subQuery += "y = " + antenna.getY() + ", ";
-		}
-		if(antenna.isDirty(DirtyAntennaReason.Z))
-		{
-			subQuery += "z = " + antenna.getZ() + ", ";
-		}
 		if(antenna.isDirty(DirtyAntennaReason.OWNER))
 		{
 			subQuery += "owner = " + antenna.getOwner() + ", ";
@@ -109,5 +98,23 @@ public class StorageManager
 		{
 			db.insert(query + values);
 		}
+	}
+	
+	public void updateNetwork(Network network)
+	{
+		String subQuery = "";
+		
+		if(network.isDirty(DirtyNetworkReason.OWNER))
+		{
+			subQuery += "owner = " + network.getOwner();
+		}
+		
+		if(!subQuery.isEmpty())
+		{
+			String query = "UPDATE `cc_network` SET " + subQuery + " WHERE name = " + network.getName();
+			db.execute(query);
+		}
+		
+		network.clearDirty();
 	}
 }
