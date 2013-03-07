@@ -15,9 +15,6 @@ public class Antenna
 	private Set<DirtyAntennaReason> dirty = new HashSet<DirtyAntennaReason>();
 	public enum DirtyAntennaReason
 	{
-		X,
-		Y,
-		Z,
 		OWNER,
 		NETWORK
 	}
@@ -53,38 +50,17 @@ public class Antenna
 	{
 		return this.id;
 	}
-	
-	public void setId(int id)
-	{
-		this.id = id;
-	}
 
 	public int getX() {
 		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-		dirty.add(DirtyAntennaReason.X);
 	}
 
 	public int getY() {
 		return y;
 	}
 
-	public void setY(int y) {
-		this.y = y;
-		dirty.add(DirtyAntennaReason.Y);
-	}
-
 	public int getZ() {
 		return z;
-	}
-	
-	public void setZ(int z)
-	{
-		this.z = z;
-		dirty.add(DirtyAntennaReason.Z);
 	}
 	
 	public String getOwner() {

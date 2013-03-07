@@ -11,7 +11,6 @@ public class Network
 	private Set<DirtyNetworkReason> dirty = new HashSet<DirtyNetworkReason>();
 	public enum DirtyNetworkReason
 	{
-		NAME,
 		OWNER
 	}
 	
@@ -24,12 +23,6 @@ public class Network
 	public String getName() 
 	{
 		return name;
-	}
-
-	public void setName(String name) 
-	{
-		this.name = name;
-		this.dirty.add(DirtyNetworkReason.NAME);
 	}
 
 	public String getOwner() {
