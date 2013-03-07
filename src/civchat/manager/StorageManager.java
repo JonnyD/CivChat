@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import civchat.CivChat;
 import civchat.model.Antenna;
+import civchat.model.Antenna.DirtyAntennaReason;
 import civchat.model.Network;
 import civchat.storage.DB;
 import civchat.storage.MySQL;
@@ -17,9 +18,9 @@ public class StorageManager
 	
 	public StorageManager()
 	{
-		plugin = CivChat.getInstance();
+		plugin        = CivChat.getInstance();
 		configManager = plugin.getConfigManager();
-		log = CivChat.getLog();
+		log           = CivChat.getLog();
 		
 		initiateDB();
 	}
@@ -56,7 +57,7 @@ public class StorageManager
 	
 	public void offerAntenna(Antenna antenna)
 	{
-		String query = "INSERT INTO `cc_antenna` (`x`, `y`, `z`, `owner`)";
+		String query  = "INSERT INTO `cc_antenna` (`x`, `y`, `z`, `owner`)";
 		String values = "VALUES (" + antenna.getX() + ", " + antenna.getY() + ", " + antenna.getZ() + ", '" + antenna.getOwner() + "')";	
 	
 		synchronized (this)
@@ -65,9 +66,43 @@ public class StorageManager
 		}
 	}
 	
+	public void updateAntenna(Antenna antenna)
+	{
+		String subQuery = "";
+		
+		if(antenna.isDirty(DirtyAntennaReason.X))
+		{
+			subQuery += "x = " + antenna.getX() + ", ";
+		}
+		if(antenna.isDirty(DirtyAntennaReason.Y))
+		{
+			subQuery += "y = " + antenna.getY() + ", ";
+		}
+		if(antenna.isDirty(DirtyAntennaReason.Z))
+		{
+			subQuery += "z = " + antenna.getZ() + ", ";
+		}
+		if(antenna.isDirty(DirtyAntennaReason.OWNER))
+		{
+			subQuery += "owner = " + antenna.getOwner() + ", ";
+		}
+		if(antenna.isDirty(DirtyAntennaReason.NETWORK))
+		{
+			subQuery += "network = " + antenna.getNetwork();
+		}
+
+        if (!subQuery.isEmpty())
+        {
+            String query = "UPDATE `cc_antenna` SET " + subQuery + " WHERE x = " + antenna.getX() + " AND y = " + antenna.getY() + " AND z = " + antenna.getZ() + " AND owner = '" + antenna.getOwner() + "';";
+            db.execute(query);
+        }
+
+        antenna.clearDirty();
+	}
+	
 	public void offerNetwork(Network network)
 	{
-		String query = "INSERT INTO `cc_network` (`name`, `owner`)";
+		String query  = "INSERT INTO `cc_network` (`name`, `owner`)";
 		String values = "VALUES ('" + network.getName() + "', '" + network.getOwner() + "')";
 		
 		synchronized (this)
