@@ -19,6 +19,6 @@ public class NetworkManager
 	public void recordNetwork(String name, Player player)
 	{
 		Network network = new Network(name, player.getDisplayName());
-		storageManager.offerNetwork(network);
+		storageManager.insertNetwork(network);
 	}
 }

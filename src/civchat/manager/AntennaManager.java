@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 
 import civchat.CivChat;
 import civchat.model.Antenna;
+import civchat.model.CivPlayer;
 
 public class AntennaManager 
 {
@@ -19,7 +20,13 @@ public class AntennaManager
 	
 	public void recordAntennaPlace(Player player, Block block)
 	{
-		Antenna antenna = new Antenna(block.getX(), block.getY(), block.getZ());
-		storageManager.offerAntenna(antenna);
+		Antenna antenna = new Antenna(block.getX(), block.getY(), block.getZ(), player.getDisplayName());
+		storageManager.insertAntenna(antenna);
+	}
+	
+	public void recordAntennaNetwork(CivPlayer civPlayer, Antenna antenna)
+	{
+		antenna.setNetwork(civPlayer.getNetwork());
+		storageManager.updateAntenna(antenna);
 	}
 }
