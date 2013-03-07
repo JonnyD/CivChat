@@ -2,7 +2,11 @@ package civchat.manager;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -18,6 +22,8 @@ public class ConfigManager
 	private String database;
 	private int port;
 	
+	private Set<Material> antennaMaterials;
+	
 	private File main;
 	private FileConfiguration config;
 	private FileConfiguration cleanConfig;
@@ -28,6 +34,7 @@ public class ConfigManager
 		this.config = plugin.getConfig();
 		this.cleanConfig = new YamlConfiguration();
 		this.main = new File(plugin.getDataFolder() + File.separator + "config.yml");
+		this.antennaMaterials  = new LinkedHashSet<Material>();
 		this.load();
 	}
 	
@@ -57,6 +64,12 @@ public class ConfigManager
         password = loadString("mysql.password");
         database = loadString("mysql.database");
         port     = loadInt("mysql.port");
+        
+        for(String m : loadStringList("antenna.materials"))
+        {
+        	Material material = Material.matchMaterial(m.toString());
+        	antennaMaterials.add(material);
+        }
         
         save();
 	}
@@ -106,6 +119,18 @@ public class ConfigManager
         }
 
         return 0;
+    }
+    
+    private List<String> loadStringList(String path)
+    {
+    	if(config.isList(path))
+    	{
+    		List<String> value = config.getStringList(path);
+    		cleanConfig.set(path, value);
+    		return value;
+    	}
+    	
+    	return null;
     }
     
     public void save()
@@ -190,5 +215,14 @@ public class ConfigManager
 
 	public void setCleanConfig(FileConfiguration cleanConfig) {
 		this.cleanConfig = cleanConfig;
+	}
+
+	public Set<Material> getAntennaMaterials() {
+		return antennaMaterials;
+	}
+
+	public void setAntennaMaterials(Set<Material> antennaMaterials) {
+		this.antennaMaterials = antennaMaterials;
 	}    
+	
 }

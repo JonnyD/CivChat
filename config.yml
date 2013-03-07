@@ -1,7 +1,12 @@
 mysql:
-    username: 'bukkit'
-    host: localhost
-    enable: true
-    password: 'pass'
-    database: bukkit
-    port: 3306
+  username: 'root'
+  host: localhost
+  enable: true
+  password: ''
+  database: bukkit
+  port: 3306
+antenna:
+  materials:
+    - JUKEBOX
+    - DIAMOND_BLOCK
+    - IRON_FENCE
