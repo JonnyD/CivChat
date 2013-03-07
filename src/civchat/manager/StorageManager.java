@@ -47,7 +47,7 @@ public class StorageManager
 			if(!db.existsTable("cc_antenna"))
 			{
 				log.info("Creating table: cc_antenna");
-				String query = "CREATE TABLE IF NOT EXISTS `cc_antenna` (`id` integer NOT NULL auto_increment, `x` integer NOT NULL, `y` integer NOT NULL, `z` integer NOT NULL, `owner` varchar(100) NOT NULL, PRIMARY KEY(`id`));";
+				String query = "CREATE TABLE IF NOT EXISTS `cc_antenna` (`id` integer NOT NULL auto_increment, `x` integer NOT NULL, `y` integer NOT NULL, `z` integer NOT NULL, `owner` varchar(100) NOT NULL, `damaged` TINYINT(1) DEFAULT 0, PRIMARY KEY(`id`));";
 				db.execute(query);
 			}
 			
@@ -81,7 +81,11 @@ public class StorageManager
 		}
 		if(antenna.isDirty(DirtyAntennaReason.NETWORK))
 		{
-			subQuery += "network = " + antenna.getNetwork();
+			subQuery += "network = " + antenna.getNetwork() + ", ";
+		}
+		if(antenna.isDirty(DirtyAntennaReason.DAMAGED))
+		{
+			subQuery += "damaged = " + antenna.isDamaged();
 		}
 
         if (!subQuery.isEmpty())
@@ -106,13 +110,14 @@ public class StorageManager
 				while(res.next())
 				{
 					try {
-						int id       = res.getInt("id");
-						int x        = res.getInt("x");
-						int y        = res.getInt("y");
-						int z        = res.getInt("z");
-						String owner = res.getString("owner");
+						int id          = res.getInt("id");
+						int x           = res.getInt("x");
+						int y           = res.getInt("y");
+						int z           = res.getInt("z");
+						String owner    = res.getString("owner");
+						boolean damaged = res.getBoolean("damaged");
 						
-						antenna = new Antenna(id, x, y, z, owner);
+						antenna = new Antenna(id, x, y, z, owner, damaged);
 					}
 					catch (Exception ex)
 					{

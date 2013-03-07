@@ -11,12 +11,14 @@ public class Antenna
 	private int z;
 	private String owner;
 	private String network;
+	private boolean damaged = false;
 	
 	private Set<DirtyAntennaReason> dirty = new HashSet<DirtyAntennaReason>();
 	public enum DirtyAntennaReason
 	{
 		OWNER,
-		NETWORK
+		NETWORK,
+		DAMAGED
 	}
 	
 	public Antenna(int x, int y, int z, String owner)
@@ -27,16 +29,17 @@ public class Antenna
 		this.owner = owner;
 	}
 	
-	public Antenna(int id, int x, int y, int z, String owner)
+	public Antenna(int id, int x, int y, int z, String owner, boolean damaged)
 	{
-		this.id    = id;
-		this.x     = x;
-		this.y     = y;
-		this.z     = z;
-		this.owner = owner;
+		this.id      = id;
+		this.x       = x;
+		this.y       = y;
+		this.z       = z;
+		this.owner   = owner;
+		this.damaged = damaged;
 	}
 	
-	public Antenna(int id, int x, int y, int z, String owner, String network)
+	public Antenna(int id, int x, int y, int z, String owner, String network, boolean damaged)
 	{
 		this.id      = id;
 		this.x       = x;
@@ -44,6 +47,7 @@ public class Antenna
 		this.z       = z;
 		this.owner   = owner;
 		this.network = network;
+		this.damaged = damaged;
 	}
 	
 	public int getId()
@@ -81,6 +85,17 @@ public class Antenna
 	{
 		this.network = network;
 		dirty.add(DirtyAntennaReason.NETWORK);
+	}
+	
+	public boolean isDamaged()
+	{
+		return damaged;
+	}
+	
+	public void setDamaged(boolean damaged)
+	{
+		this.damaged = damaged;
+		dirty.add(DirtyAntennaReason.DAMAGED);
 	}
 	
 	public boolean isDirty(DirtyAntennaReason dirtyType)
