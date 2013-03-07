@@ -47,7 +47,7 @@ public class StorageManager
 			if(!db.existsTable("cc_antenna"))
 			{
 				log.info("Creating table: cc_antenna");
-				String query = "CREATE TABLE IF NOT EXISTS `cc_antenna` (`id` integer NOT NULL auto_increment, `x` integer NOT NULL, `y` integer NOT NULL, `z` integer NOT NULL, `owner` varchar(100) NOT NULL, `damaged` TINYINT(1) DEFAULT 0, PRIMARY KEY(`id`));";
+				String query = "CREATE TABLE IF NOT EXISTS `cc_antenna` (`id` integer NOT NULL auto_increment, `x` integer NOT NULL, `y` integer NOT NULL, `z` integer NOT NULL, `owner` varchar(100) NOT NULL, `damaged` TINYINT(1) DEFAULT 0, `network_id` integer, PRIMARY KEY(`id`), FOREIGN KEY (`network_id`) REFERENCES `cc_network` (`id`));";
 				db.execute(query);
 			}
 			
@@ -161,5 +161,39 @@ public class StorageManager
 		}
 		
 		network.clearDirty();
+	}
+	
+	public Network findNetwork(String n)
+	{
+		Network network = null;
+		
+		String query  = "SELECT * FROM `cc_network` WHERE name = '" + n + "'";
+		ResultSet res = db.select(query);
+		if(res != null)
+		{
+			try
+			{
+				while(res.next())
+				{
+					try {
+						int id       = res.getInt("id");
+						String name  = res.getString("name");
+						String owner = res.getString("owner");
+						
+						network = new Network(id, name, owner);
+					}
+					catch (Exception ex)
+					{
+						log.info(ex.getMessage());
+					}
+				}
+			}
+			catch (SQLException ex)
+			{
+				log.severe(ex.getMessage());
+			}
+		}
+				
+		return network;
 	}
 }
