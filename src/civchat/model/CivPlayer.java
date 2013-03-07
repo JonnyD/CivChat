@@ -4,9 +4,9 @@ import org.bukkit.entity.Player;
 
 public class CivPlayer
 {
-
 	private final Player player;
 	private Mode mode;
+	private Network network;
 	
 	public CivPlayer(Player player)
 	{
@@ -17,6 +17,7 @@ public class CivPlayer
 	public void reset()
 	{
 		this.mode = Mode.NORMAL;
+		this.network = null;
 	}
 	
 	public Mode getMode()
@@ -32,5 +33,15 @@ public class CivPlayer
 	public Player getPlayer()
 	{
 		return this.player;
+	}
+	
+	public void setNetwork(Network network)
+	{
+		this.network = network;
+	}
+	
+	public Network getNetwork()
+	{
+		return this.network;
 	}
 }
