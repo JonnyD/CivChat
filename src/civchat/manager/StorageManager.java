@@ -44,17 +44,17 @@ public class StorageManager
 		{
 			log.info("dbMysqlConnected");
 			
-			if(!db.existsTable("cc_antenna"))
-			{
-				log.info("Creating table: cc_antenna");
-				String query = "CREATE TABLE IF NOT EXISTS `cc_antenna` (`id` integer NOT NULL auto_increment, `x` integer NOT NULL, `y` integer NOT NULL, `z` integer NOT NULL, `owner` varchar(100) NOT NULL, `damaged` TINYINT(1) DEFAULT 0, `network_id` integer, PRIMARY KEY(`id`), FOREIGN KEY (`network_id`) REFERENCES `cc_network` (`id`));";
-				db.execute(query);
-			}
-			
 			if(!db.existsTable("cc_network"))
 			{
 				log.info("Creating table: cc_network");
 				String query = "CREATE TABLE IF NOT EXISTS `cc_network` (`id` integer NOT NULL auto_increment, `name` varchar(100), `owner` varchar(100), PRIMARY KEY(`id`));";
+				db.execute(query);
+			}
+			
+			if(!db.existsTable("cc_antenna"))
+			{
+				log.info("Creating table: cc_antenna");
+				String query = "CREATE TABLE IF NOT EXISTS `cc_antenna` (`id` integer NOT NULL auto_increment, `x` integer NOT NULL, `y` integer NOT NULL, `z` integer NOT NULL, `owner` varchar(100) NOT NULL, `damaged` TINYINT(1) DEFAULT 0, `network_id` integer, PRIMARY KEY(`id`), FOREIGN KEY (`network_id`) REFERENCES cc_network (`id`));";
 				db.execute(query);
 			}
 		}
