@@ -1,6 +1,9 @@
 package civchat.manager;
 
+import java.sql.ResultSet;
 import java.util.logging.Logger;
+
+import org.bukkit.Location;
 
 import civchat.CivChat;
 import civchat.model.Antenna;
@@ -87,6 +90,34 @@ public class StorageManager
         }
 
         antenna.clearDirty();
+	}
+	
+	public Antenna findAntenna(Location location)
+	{
+		String query = "SELECT * FROM `cc_antenna`";
+		ResultSet res = db.select(query);
+		Antenna antenna = null;
+		if(res != null)
+		{
+			try
+			{
+				while(res.next())
+				{
+					int id       = res.getInt("id");
+					int x        = res.getInt("x");
+					int y        = res.getInt("y");
+					int z        = res.getInt("z");
+					String owner = res.getString("owner");
+					
+					antenna = new Antenna(id, x, y, z, owner);
+				}
+			}
+			catch (Exception ex)
+			{
+				log.info(ex.getMessage());
+			}
+		}
+		return antenna;
 	}
 	
 	public void insertNetwork(Network network)
