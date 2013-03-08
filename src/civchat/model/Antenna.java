@@ -9,8 +9,9 @@ public class Antenna
 	private int x;
 	private int y;
 	private int z;
+	private String world;
 	private String owner;
-	private String network;
+	private int networkId;
 	private boolean damaged = false;
 	
 	private Set<DirtyAntennaReason> dirty = new HashSet<DirtyAntennaReason>();
@@ -21,32 +22,35 @@ public class Antenna
 		DAMAGED
 	}
 	
-	public Antenna(int x, int y, int z, String owner)
+	public Antenna(int x, int y, int z, String world, String owner)
 	{
 		this.x     = x;
 		this.y     = y;
 		this.z     = z;
+		this.world = world;
 		this.owner = owner;
 	}
 	
-	public Antenna(int id, int x, int y, int z, String owner, boolean damaged)
+	public Antenna(int id, int x, int y, int z, String world, String owner, boolean damaged)
 	{
 		this.id      = id;
 		this.x       = x;
 		this.y       = y;
 		this.z       = z;
+		this.world   = world;
 		this.owner   = owner;
 		this.damaged = damaged;
 	}
 	
-	public Antenna(int id, int x, int y, int z, String owner, String network, boolean damaged)
+	public Antenna(int id, int x, int y, int z, String world, String owner, boolean damaged, int networkId)
 	{
 		this.id      = id;
 		this.x       = x;
 		this.y       = y;
 		this.z       = z;
+		this.world   = world;
 		this.owner   = owner;
-		this.network = network;
+		this.networkId = networkId;
 		this.damaged = damaged;
 	}
 	
@@ -67,6 +71,11 @@ public class Antenna
 		return z;
 	}
 	
+	public String getWorld()
+	{
+		return world;
+	}
+	
 	public String getOwner() {
 		return owner;
 	}
@@ -76,14 +85,14 @@ public class Antenna
 		dirty.add(DirtyAntennaReason.OWNER);
 	}
 	
-	public String getNetwork()
+	public int getNetworkId()
 	{
-		return network;
+		return networkId;
 	}
 	
-	public void setNetwork(String network)
+	public void setNetworkId(int networkId)
 	{
-		this.network = network;
+		this.networkId = networkId;
 		dirty.add(DirtyAntennaReason.NETWORK);
 	}
 	

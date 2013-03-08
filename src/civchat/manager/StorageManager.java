@@ -55,7 +55,7 @@ public class StorageManager
 			if(!db.existsTable("cc_antenna"))
 			{
 				log.info("Creating table: cc_antenna");
-				String query = "CREATE TABLE IF NOT EXISTS `cc_antenna` (`id` integer NOT NULL auto_increment, `x` integer NOT NULL, `y` integer NOT NULL, `z` integer NOT NULL, `owner` varchar(100) NOT NULL, `damaged` TINYINT(1) DEFAULT 0, `network_id` integer, PRIMARY KEY(`id`), FOREIGN KEY (`network_id`) REFERENCES cc_network (`id`));";
+				String query = "CREATE TABLE IF NOT EXISTS `cc_antenna` (`id` integer NOT NULL auto_increment, `x` integer NOT NULL, `y` integer NOT NULL, `z` integer NOT NULL, `world` varchar(30) NOT NULL, `owner` varchar(100) NOT NULL, `damaged` TINYINT(1) DEFAULT 0, `network_id` integer, PRIMARY KEY(`id`), FOREIGN KEY (`network_id`) REFERENCES cc_network (`id`));";
 				db.execute(query);
 			}
 		}
@@ -63,8 +63,8 @@ public class StorageManager
 
 	public void insertAntenna(Antenna antenna)
 	{
-		String query  = "INSERT INTO `cc_antenna` (`x`, `y`, `z`, `owner`)";
-		String values = "VALUES (" + antenna.getX() + ", " + antenna.getY() + ", " + antenna.getZ() + ", '" + antenna.getOwner() + "')";	
+		String query  = "INSERT INTO `cc_antenna` (`x`, `y`, `z`, `world`, `owner`)";
+		String values = "VALUES (" + antenna.getX() + ", " + antenna.getY() + ", " + antenna.getZ() + ", '" + antenna.getWorld() + "', '" + antenna.getOwner() + "')";	
 
 		synchronized (this)
 		{
@@ -89,13 +89,10 @@ public class StorageManager
 			subQuery += "damaged = " + antenna.isDamaged() + ", ";
 		}
 
-		System.out.println("test");
 		if (!subQuery.isEmpty())
 		{
-			String query = "UPDATE `cc_antenna` SET " + Utility.stripTrailingComma(subQuery) + " WHERE x = " + antenna.getX() + " AND y = " + antenna.getY() + " AND z = " + antenna.getZ() + " AND owner = '" + antenna.getOwner() + "';";
+			String query = "UPDATE `cc_antenna` SET " + Utility.stripTrailingComma(subQuery) + " WHERE x = " + antenna.getX() + " AND y = " + antenna.getY() + " AND z = " + antenna.getZ() + " AND world = '" + antenna.getWorld() + "';";
 			db.execute(query);
-			System.out.println(query);
-			System.out.println("test2");
 		}
 
 		antenna.clearDirty();
@@ -105,7 +102,7 @@ public class StorageManager
 	{
 		Antenna antenna = null;
 
-		String query  = "SELECT * FROM `cc_antenna` WHERE x = " + (int) location.getX() + " AND y = " + (int) location.getY() + " AND z = " + (int) location.getZ() + ";";
+		String query  = "SELECT * FROM `cc_antenna` WHERE x = " + (int) location.getX() + " AND y = " + (int) location.getY() + " AND z = " + (int) location.getZ() + " AND world = '" + location.getWorld().getName() + "';";
 		ResultSet res = db.select(query);
 		if(res != null)
 		{
@@ -118,11 +115,12 @@ public class StorageManager
 						int x           = res.getInt("x");
 						int y           = res.getInt("y");
 						int z           = res.getInt("z");
+						String world    = res.getString("world");
 						String owner    = res.getString("owner");
 						boolean damaged = res.getBoolean("damaged");
 						int networkId   = res.getInt("network_id");
 
-						antenna = new Antenna(id, x, y, z, owner, damaged);
+						antenna = new Antenna(id, x, y, z, world, owner, damaged, networkId);
 					}
 					catch (Exception ex)
 					{

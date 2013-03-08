@@ -35,14 +35,15 @@ public class AntennaManager
 		int x             = (int) location.getX();
 		int y             = (int) location.getY();
 		int z             = (int) location.getZ();
+		String world      = location.getWorld().getName();
 		String playerName = player.getDisplayName();
-		Antenna antenna   = new Antenna(x, y, z, playerName);
+		Antenna antenna   = new Antenna(x, y, z, world, playerName);
 		storageManager.insertAntenna(antenna);
 	}
 	
 	public void recordAntennaNetwork(CivPlayer civPlayer, Antenna antenna)
 	{
-		antenna.setNetwork(civPlayer.getNetwork());
+		antenna.setNetworkId(civPlayer.getNetwork().getId());
 		updateAntenna(antenna);
 	}
 	
@@ -57,6 +58,7 @@ public class AntennaManager
 		storageManager.updateAntenna(antenna);
 	}
 	
+	//Todo : Tbere should be a better way to do this...
 	public boolean canBeAntenna(Block block) 
 	{
 		Set<Material> antennaMaterials = configManager.getAntennaMaterials();
@@ -84,6 +86,7 @@ public class AntennaManager
 		return false;
 	}
 	
+	//Todo : Tbere should be a better way to do this...
 	public Location findLocation(Block block)
 	{
 		List<Material> antennaMaterials = new ArrayList<Material>(configManager.getAntennaMaterials());
