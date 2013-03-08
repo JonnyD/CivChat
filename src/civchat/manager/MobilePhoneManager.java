@@ -18,4 +18,12 @@ public class MobilePhoneManager
 		this.storageManager = plugin.getStorageManager();
 		this.configManager  = plugin.getConfigManager();
 	}
+	
+	public int recordMobilePhone(Network network, Player player)
+	{
+		int networkId     = network.getId();
+		String playerName = player.getDisplayName();
+		MobilePhone phone = new MobilePhone(networkId, playerName);
+		return storageManager.insertMobilePhone(phone);
+	}
 }
