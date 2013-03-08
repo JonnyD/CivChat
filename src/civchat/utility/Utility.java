@@ -1,14 +1,14 @@
 package civchat.utility;
 
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.entity.Player;
-
-import civchat.manager.PlayerManager;
-import civchat.model.CivPlayer;
-
 public class Utility 
 {
-
+	public static String stripTrailingComma(String text)
+	{
+		int pos = text.lastIndexOf(",");
+        if (pos >= 0)
+        {
+            return text.substring(0, pos);
+        }
+        return text;
+	}
 }

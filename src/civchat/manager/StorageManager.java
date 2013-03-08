@@ -13,6 +13,7 @@ import civchat.model.Network.DirtyNetworkReason;
 import civchat.model.Network;
 import civchat.storage.DB;
 import civchat.storage.MySQL;
+import civchat.utility.Utility;
 
 public class StorageManager 
 {
@@ -85,14 +86,15 @@ public class StorageManager
 		}
 		if(antenna.isDirty(DirtyAntennaReason.DAMAGED))
 		{
-			subQuery += "damaged = " + antenna.isDamaged();
+			subQuery += "damaged = " + antenna.isDamaged() + ", ";
 		}
 
 		System.out.println("test");
 		if (!subQuery.isEmpty())
 		{
-			String query = "UPDATE `cc_antenna` SET " + subQuery + " WHERE x = " + antenna.getX() + " AND y = " + antenna.getY() + " AND z = " + antenna.getZ() + " AND owner = '" + antenna.getOwner() + "';";
+			String query = "UPDATE `cc_antenna` SET " + Utility.stripTrailingComma(subQuery) + " WHERE x = " + antenna.getX() + " AND y = " + antenna.getY() + " AND z = " + antenna.getZ() + " AND owner = '" + antenna.getOwner() + "';";
 			db.execute(query);
+			System.out.println(query);
 			System.out.println("test2");
 		}
 
@@ -154,12 +156,12 @@ public class StorageManager
 
 		if(network.isDirty(DirtyNetworkReason.OWNER))
 		{
-			subQuery += "owner = " + network.getOwner();
+			subQuery += "owner = " + network.getOwner() + ", ";
 		}
 
 		if(!subQuery.isEmpty())
 		{
-			String query = "UPDATE `cc_network` SET " + subQuery + " WHERE name = " + network.getName();
+			String query = "UPDATE `cc_network` SET " + Utility.stripTrailingComma(subQuery) + " WHERE name = " + network.getName();
 			db.execute(query);
 		}
 
