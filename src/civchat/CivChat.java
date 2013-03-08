@@ -10,6 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import civchat.command.CommandHandler;
 import civchat.command.commands.CreateAntenna;
 import civchat.command.commands.CreateNetworkCommand;
+import civchat.command.commands.SetNetworkCommand;
 import civchat.listener.BlockListener;
 import civchat.listener.ChatListener;
 import civchat.listener.PlayerListener;
@@ -66,8 +67,9 @@ public class CivChat extends JavaPlugin
 	
 	public void registerCommands()
 	{
-		this.commandHandler.addCommand(new CreateAntenna());
-		this.commandHandler.addCommand(new CreateNetworkCommand());
+		commandHandler.addCommand(new CreateAntenna());
+		commandHandler.addCommand(new CreateNetworkCommand());
+		commandHandler.addCommand(new SetNetworkCommand());
 	}	
 	
 	public void registerEvents()

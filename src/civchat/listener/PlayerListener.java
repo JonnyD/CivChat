@@ -1,5 +1,6 @@
 package civchat.listener;
 
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -8,7 +9,10 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import civchat.CivChat;
+import civchat.manager.AntennaManager;
 import civchat.manager.PlayerManager;
+import civchat.model.Antenna;
 import civchat.model.CivPlayer;
 import civchat.model.Mode;
 import civchat.utility.Utility;
@@ -23,7 +27,7 @@ public class PlayerListener implements Listener
 		CivPlayer civPlayer = playerManager.getOrCreateCivPlayer(player);
 		playerManager.addCivPlayer(civPlayer);
 	}
-	
+
 	@EventHandler
 	public void quit(PlayerQuitEvent event)
 	{
@@ -31,36 +35,51 @@ public class PlayerListener implements Listener
 		PlayerManager playerManager = PlayerManager.getInstance();
 		playerManager.removeCivPlayer(player);
 	}
-	
+
 	@EventHandler
 	public void interact(PlayerInteractEvent event)
 	{
 		if(!event.hasBlock()){return;}
 
-		Block block = event.getClickedBlock();
-		Player player = event.getPlayer();		
-		
+		Block clickedBlock = event.getClickedBlock();
+		Player player      = event.getPlayer();	
+
 		PlayerManager playerManager = PlayerManager.getInstance();
-		CivPlayer civPlayer = playerManager.getCivPlayer(player);
-		
+		CivPlayer civPlayer         = playerManager.getCivPlayer(player);
+
 		if(civPlayer != null)
 		{
 			Mode mode = civPlayer.getMode();
-			switch(mode)
+
+			if(mode != null && mode != Mode.NORMAL)
 			{
-				case NORMAL:
-					return;
-				case CREATE_ANTENNA:
-					boolean canBeAntenna = Utility.canBeAntenna(block);
-					if(canBeAntenna)
+				AntennaManager antennaManager = CivChat.getInstance().getAntennaManager();
+				boolean canBeAntenna          = antennaManager.canBeAntenna(clickedBlock);
+
+				if(canBeAntenna)
+				{
+					Location location = antennaManager.findLocation(clickedBlock);
+					Boolean isAntenna = antennaManager.isAntenna(location);
+
+					switch(mode)
 					{
-						System.out.println("antenna created");
+					case CREATE_ANTENNA:
+						if(!isAntenna)
+						{
+							antennaManager.recordAntennaPlace(player, location);
+						}
+						break;
+					case SET_NETWORK:
+						if(isAntenna)
+						{
+							Antenna antenna = antennaManager.getAntenna(location);
+							antennaManager.recordAntennaNetwork(civPlayer, antenna);
+						}
+						break;
 					}
-					else
-					{
-						System.out.println("not possible to create an antenna here");
-					}
-					civPlayer.reset();
+				}
+
+				civPlayer.reset();
 			}
 		}
 	}

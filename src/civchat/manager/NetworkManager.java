@@ -21,4 +21,9 @@ public class NetworkManager
 		Network network = new Network(name, player.getDisplayName());
 		storageManager.insertNetwork(network);
 	}
+	
+	public Network getNetwork(String name)
+	{
+		return storageManager.findNetwork(name);
+	}
 }

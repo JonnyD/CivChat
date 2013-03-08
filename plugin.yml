@@ -8,7 +8,10 @@ commands:
   ccantenna:
     aliases: cca
     description: List the possible reinforcement materials, their strengths, and requirements.
-    usage: /ccantenna (or /cca)
+    usage: /ccantenna
   ccnetwork:
     description: Create a network
     usage: /ccnetwork
+  ccsetnetwork:
+    description: Set network
+    usage: /ccsetnetwork <network-name>

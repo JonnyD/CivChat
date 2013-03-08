@@ -5,6 +5,7 @@ import java.util.Set;
 
 public class Network 
 {
+	private int id;
 	private String name;
 	private String owner;
 	
@@ -18,6 +19,18 @@ public class Network
 	{
 		this.name  = name;
 		this.owner = owner;
+	}
+	
+	public Network(int id, String name, String owner)
+	{
+		this.id = id;
+		this.name = name;
+		this.owner = owner;
+	}
+	
+	public int getId()
+	{
+		return id;
 	}
 
 	public String getName() 
