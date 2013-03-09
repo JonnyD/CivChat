@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import civchat.CivChat;
 import civchat.command.PlayerCommand;
 import civchat.manager.NetworkManager;
-import civchat.manager.StorageManager;
 
 public class CreateNetworkCommand extends PlayerCommand
 {

@@ -1,10 +1,7 @@
 package civchat.listener;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,7 +19,6 @@ import civchat.manager.PlayerManager;
 import civchat.model.Antenna;
 import civchat.model.CivPlayer;
 import civchat.model.Mode;
-import civchat.utility.Utility;
 
 public class PlayerListener implements Listener
 {

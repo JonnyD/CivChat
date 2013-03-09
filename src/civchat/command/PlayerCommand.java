@@ -1,7 +1,5 @@
 package civchat.command;
 
-import org.bukkit.command.CommandSender;
-
 import civchat.CivChat;
 
 public abstract class PlayerCommand implements Command

@@ -3,11 +3,8 @@ package civchat.command.commands;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
-import civchat.CivChat;
 import civchat.command.PlayerCommand;
 import civchat.manager.MobilePhoneManager;
 import civchat.manager.NetworkManager;
