@@ -10,12 +10,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 import civchat.command.CommandHandler;
 import civchat.command.commands.CreateAntenna;
 import civchat.command.commands.CreateNetworkCommand;
+import civchat.command.commands.CreatePhone;
 import civchat.command.commands.SetNetworkCommand;
 import civchat.listener.BlockListener;
 import civchat.listener.ChatListener;
 import civchat.listener.PlayerListener;
 import civchat.manager.AntennaManager;
 import civchat.manager.ConfigManager;
+import civchat.manager.MobilePhoneManager;
 import civchat.manager.NetworkManager;
 import civchat.manager.StorageManager;
 
@@ -29,6 +31,7 @@ public class CivChat extends JavaPlugin
 	private StorageManager storageManager;
 	private AntennaManager antennaManager;
 	private NetworkManager networkManager;
+	private MobilePhoneManager mobilePhoneManager;
 	
 	public void onEnable() 
 	{
@@ -39,6 +42,7 @@ public class CivChat extends JavaPlugin
 		commandHandler = new CommandHandler();
 		antennaManager = new AntennaManager();
 		networkManager = new NetworkManager();
+		mobilePhoneManager = new MobilePhoneManager();
 		
 		registerCommands();
 		registerEvents();
@@ -70,6 +74,7 @@ public class CivChat extends JavaPlugin
 		commandHandler.addCommand(new CreateAntenna());
 		commandHandler.addCommand(new CreateNetworkCommand());
 		commandHandler.addCommand(new SetNetworkCommand());
+		commandHandler.addCommand(new CreatePhone());
 	}	
 	
 	public void registerEvents()
@@ -98,5 +103,10 @@ public class CivChat extends JavaPlugin
 	public NetworkManager getNetworkManager()
 	{
 		return this.networkManager;
+	}
+	
+	public MobilePhoneManager getMobilePhoneManager()
+	{
+		return mobilePhoneManager;
 	}
 }

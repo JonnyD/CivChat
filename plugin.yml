@@ -15,3 +15,6 @@ commands:
   ccsetnetwork:
     description: Set network
     usage: /ccsetnetwork <network-name>
+  createphone:
+    description: Create phone
+    usage: /createphone <network>

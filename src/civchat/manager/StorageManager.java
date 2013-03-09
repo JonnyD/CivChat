@@ -9,6 +9,8 @@ import org.bukkit.Location;
 import civchat.CivChat;
 import civchat.model.Antenna;
 import civchat.model.Antenna.DirtyAntennaReason;
+import civchat.model.MobilePhone;
+import civchat.model.MobilePhone.DirtyMobilePhoneReason;
 import civchat.model.Network.DirtyNetworkReason;
 import civchat.model.Network;
 import civchat.storage.DB;
@@ -49,6 +51,13 @@ public class StorageManager
 			{
 				log.info("Creating table: cc_network");
 				String query = "CREATE TABLE IF NOT EXISTS `cc_network` (`id` integer NOT NULL auto_increment, `name` varchar(100), `owner` varchar(100), PRIMARY KEY(`id`));";
+				db.execute(query);
+			}
+
+			if(!db.existsTable("cc_handset"))
+			{
+				log.info("Creating table: cc_handset");
+				String query = "CREATE TABLE IF NOT EXISTS `cc_handset` (`id` integer NOT NULL auto_increment, `network_id` integer, `owner` varchar(100), PRIMARY KEY(`id`), FOREIGN KEY (`network_id`) REFERENCES cc_network (`id`));";
 				db.execute(query);
 			}
 
@@ -199,5 +208,105 @@ public class StorageManager
 		}
 
 		return network;
+	}
+
+	public int insertMobilePhone(MobilePhone phone)
+	{
+		String query  = "INSERT INTO `cc_handset` (`network_id`, `owner`)";
+		String values = "VALUES (" + phone.getNetworkId() + ", '" + phone.getOwner() + "')";
+		
+		int id = 0;
+		
+		synchronized(this)
+		{
+			id = (int) db.insert(query + values);
+		}
+		
+		return id;
+	}
+
+	public void updateMobilePhone(MobilePhone phone)
+	{
+		String subQuery = "";
+
+		if(phone.isDirty(DirtyMobilePhoneReason.NETWORK))
+		{
+			subQuery += "network_id = " + phone.getNetworkId() + ", ";
+		}
+
+		if(!subQuery.isEmpty())
+		{
+			String query = "UPDATE `cc_handset` SET " + Utility.stripTrailingComma(subQuery) + " WHERE owner = " + phone.getOwner();
+			db.execute(query);
+		}
+	}
+
+	public MobilePhone findMobilePhoneByOwner(String o)
+	{
+		MobilePhone mobilePhone = null;
+
+		String query = "SELECT * FROM `cc_handset` WHERE owner = '" + o + "'";
+		ResultSet res = db.select(query);
+		if(res != null)
+		{
+			try
+			{
+				while(res.next())
+				{
+					try 
+					{
+						int id         = res.getInt("id");
+						int networkId  = res.getInt("network_id");
+						String owner   = res.getString("owner");
+
+						mobilePhone = new MobilePhone(id, networkId, owner);
+					}
+					catch (Exception ex)
+					{
+						log.info(ex.getMessage());
+					}
+				}
+			}
+			catch (SQLException ex)
+			{
+				log.severe(ex.getMessage());
+			}
+		}
+
+		return mobilePhone;
+	}
+
+	public MobilePhone findMobilePhoneById(int id)
+	{
+		MobilePhone mobilePhone = null;
+
+		String query = "SELECT * FROM `cc_handset` WHERE id = " + id;
+		ResultSet res = db.select(query);
+		if(res != null)
+		{
+			try
+			{
+				while(res.next())
+				{
+					try 
+					{
+						int networkId = res.getInt("network_id");
+						String owner  = res.getString("owner");
+
+						mobilePhone = new MobilePhone(id, networkId, owner);
+					}
+					catch (Exception ex)
+					{
+						log.info(ex.getMessage());
+					}
+				}
+			}
+			catch (SQLException ex)
+			{
+				log.severe(ex.getMessage());
+			}
+		}
+
+		return mobilePhone;
 	}
 }
