@@ -2,8 +2,12 @@ package civchat.command;
 
 import org.bukkit.command.CommandSender;
 
+import civchat.CivChat;
+
 public abstract class PlayerCommand implements Command
 {
+	protected CivChat plugin = CivChat.getInstance();
+	
 	private String name;
 	private String description = "";
 	private String usage = "";
