@@ -63,4 +63,10 @@ public class MobilePhone
 	{
 		dirty.clear();
 	}
+
+	@Override
+	public String toString() {
+		return "MobilePhone [id=" + id + ", networkId=" + networkId
+				+ ", owner=" + owner + ", dirty=" + dirty + "]";
+	}
 }

@@ -44,4 +44,11 @@ public class CivPlayer
 	{
 		return this.network;
 	}
+
+	@Override
+	public String toString() {
+		return "CivPlayer [player=" + player + ", mode=" + mode + ", network="
+				+ network + "]";
+	}
+	
 }

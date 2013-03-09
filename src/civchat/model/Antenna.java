@@ -75,7 +75,7 @@ public class Antenna
 	{
 		return world;
 	}
-	
+
 	public String getOwner() {
 		return owner;
 	}
@@ -122,4 +122,11 @@ public class Antenna
 		dirty.clear();
 	}
 	
+	@Override
+	public String toString() 
+	{
+		return "Antenna [id=" + id + ", x=" + x + ", y=" + y + ", z=" + z
+				+ ", world=" + world + ", owner=" + owner + ", networkId="
+				+ networkId + ", damaged=" + damaged + ", dirty=" + dirty + "]";
+	}
 }

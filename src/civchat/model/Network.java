@@ -61,4 +61,12 @@ public class Network
 	{
 		this.dirty.clear();
 	}
+
+	@Override
+	public String toString() {
+		return "Network [id=" + id + ", name=" + name + ", owner=" + owner
+				+ ", dirty=" + dirty + "]";
+	}
+	
+	
 }
