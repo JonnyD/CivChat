@@ -1,16 +1,23 @@
 package civchat.listener;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import civchat.CivChat;
 import civchat.manager.AntennaManager;
+import civchat.manager.MobilePhoneManager;
 import civchat.manager.PlayerManager;
 import civchat.model.Antenna;
 import civchat.model.CivPlayer;
@@ -82,5 +89,16 @@ public class PlayerListener implements Listener
 				civPlayer.reset();
 			}
 		}
+	}
+	
+	@EventHandler
+	public void onItemHeldChange(PlayerItemHeldEvent event)
+	{
+		Player player       = event.getPlayer();
+		Inventory inventory = player.getInventory();
+		ItemStack item      = inventory.getItem(event.getNewSlot());
+		
+		MobilePhoneManager phoneManager = CivChat.getInstance().getMobilePhoneManager();
+		phoneManager.announcePhone(player, item);
 	}
 }
