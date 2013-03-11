@@ -124,6 +124,19 @@ public class AntennaManager
 		return storageManager.findAntenna(location);
 	}
 	
+	public boolean isPlayerNear(Player player)
+	{
+		Set<Antenna> antennas = getAntennasNear(player.getLocation());
+		if(antennas.size() > 0)
+			return true;
+		return false;
+	}
+	
+	public Set<Antenna> getAntennasNear(Location location)
+	{
+		return storageManager.findAntennasNear(location);
+	}
+	
 	private String first3Letters(String text)
 	{
 		return text.substring(0, 3);
