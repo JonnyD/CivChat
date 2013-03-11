@@ -30,14 +30,17 @@ public class ConfigManager
 	
 	public ConfigManager()
 	{
-		this.plugin = CivChat.getInstance();
-		this.config = plugin.getConfig();
-		this.cleanConfig = new YamlConfiguration();
-		this.main = new File(plugin.getDataFolder() + File.separator + "config.yml");
+		this.plugin            = CivChat.getInstance();
+		this.config            = plugin.getConfig();
+		this.cleanConfig       = new YamlConfiguration();
+		this.main              = new File(plugin.getDataFolder() + File.separator + "config.yml");
 		this.antennaMaterials  = new LinkedHashSet<Material>();
 		this.load();
 	}
 	
+	/**
+	 * Load configuration
+	 */
 	private void load()
 	{
 		boolean exists = main.exists();

@@ -27,6 +27,12 @@ public class AntennaManager
 		this.configManager  = plugin.getConfigManager();
 	}
 	
+	/**
+	 * Adds a new antenna to storage
+	 * 
+	 * @param player
+	 * @param location
+	 */
 	public void recordAntennaPlace(Player player, Location location)
 	{
 		int x             = (int) location.getX();
@@ -38,23 +44,45 @@ public class AntennaManager
 		storageManager.insertAntenna(antenna);
 	}
 	
+	/**
+	 * Adds network to antenna
+	 * 
+	 * @param civPlayer
+	 * @param antenna
+	 */
 	public void recordAntennaNetwork(CivPlayer civPlayer, Antenna antenna)
 	{
 		antenna.setNetworkId(civPlayer.getNetwork().getId());
 		updateAntenna(antenna);
 	}
 	
+	/**
+	 * Records damage to antenna
+	 * 
+	 * @param antenna
+	 */
 	public void recordAntennaDamage(Antenna antenna)
 	{
 		antenna.setDamaged(true);
 		updateAntenna(antenna);
 	}
 	
+	/**
+	 * Updates antenna
+	 * 
+	 * @param antenna
+	 */
 	public void updateAntenna(Antenna antenna)
 	{
 		storageManager.updateAntenna(antenna);
 	}
 	
+	/**
+	 * Checks if materials placed are the materials for an antenna
+	 * 
+	 * @param block
+	 * @return
+	 */
 	//Todo : Tbere should be a better way to do this...
 	public boolean canBeAntenna(Block block) 
 	{
@@ -83,8 +111,14 @@ public class AntennaManager
 		return false;
 	}
 	
+	/**
+	 * Finds the location of the base of an antenna
+	 * 
+	 * @param block
+	 * @return Location
+	 */
 	//Todo : Tbere should be a better way to do this...
-	public Location findLocation(Block block)
+	public Location findLocationOfBase(Block block)
 	{
 		List<Material> antennaMaterials = new ArrayList<Material>(configManager.getAntennaMaterials());
 		Material material = antennaMaterials.get(0);
@@ -110,6 +144,12 @@ public class AntennaManager
 		return location;
 	}
 	
+	/**
+	 * Checks if location is antenna
+	 * 
+	 * @param location
+	 * @return boolean
+	 */
 	public boolean isAntenna(Location location)
 	{
 		if(getAntenna(location) != null)
@@ -119,11 +159,23 @@ public class AntennaManager
 		return false;
 	}
 	
+	/**
+	 * Gets antenna by location
+	 * 
+	 * @param location
+	 * @return
+	 */
 	public Antenna getAntenna(Location location)
 	{
 		return storageManager.findAntenna(location);
 	}
 	
+	/**
+	 * Checks if a player is near
+	 * 
+	 * @param player
+	 * @return boolean
+	 */
 	public boolean isPlayerNear(Player player)
 	{
 		Set<Antenna> antennas = getAntennasNear(player.getLocation());
@@ -132,6 +184,12 @@ public class AntennaManager
 		return false;
 	}
 	
+	/**
+	 * Gets antennas near location
+	 * 
+	 * @param location
+	 * @return Set<Antenna>
+	 */
 	public Set<Antenna> getAntennasNear(Location location)
 	{
 		return storageManager.findAntennasNear(location);
