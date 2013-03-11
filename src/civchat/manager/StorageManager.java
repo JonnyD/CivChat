@@ -2,6 +2,8 @@ package civchat.manager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import org.bukkit.Location;
@@ -144,6 +146,54 @@ public class StorageManager
 		}
 
 		return antenna;
+	}
+	
+	public Set<Antenna> findAntennasNear(Location location)
+	{
+		Set<Antenna> out = new HashSet<Antenna>();
+		
+		int locX        = (int) location.getX();
+		int locY        = (int) location.getY();
+		int locZ        = (int) location.getZ();
+		String locWorld = location.getWorld().getName();
+		int radius      = 20;
+		
+		String query = "SELECT * FROM cc_antenna WHERE ((x-(" + locX + "))*(x-(" + locX + "))+(y-(" + locY + "))*(y-(" + locY + "))+(z-(" + locZ + "))*(z-(" + locZ + ")) < " + radius*radius + ") AND world = '" + locWorld + "'";
+		
+		ResultSet res = db.select(query);
+		if(res != null)
+		{
+			try
+			{
+				while(res.next())
+				{
+					try
+					{
+						int id          = res.getInt("id");
+						int x           = res.getInt("x");
+						int y           = res.getInt("y");
+						int z           = res.getInt("z");
+						String world    = res.getString("world");
+						String owner    = res.getString("owner");
+						boolean damaged = res.getBoolean("damaged");
+						int networkId   = res.getInt("network_id");
+
+						Antenna antenna = new Antenna(id, x, y, z, world, owner, damaged, networkId);
+						out.add(antenna);
+					}
+					catch (Exception ex)
+					{
+						ex.printStackTrace();
+					}
+				}
+			}
+			catch (SQLException ex)
+			{
+				ex.printStackTrace();
+			}
+		}
+		
+		return out;
 	}
 
 	public void insertNetwork(Network network)
