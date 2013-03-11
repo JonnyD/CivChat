@@ -3,6 +3,7 @@ package civchat.manager;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import civchat.CivChat;
@@ -28,6 +29,19 @@ public class MobilePhoneManager
 		String playerName = player.getDisplayName();
 		MobilePhone phone = new MobilePhone(networkId, playerName);
 		return storageManager.insertMobilePhone(phone);
+	}
+	
+	public boolean hasMobilePhoneMaterial(Player player)
+	{
+		ItemStack[] inventory = player.getInventory().getContents();
+		for(ItemStack item : inventory)
+		{
+			if(item.getType() == Material.COMPASS)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public boolean isMobilePhone(int id)
