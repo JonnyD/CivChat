@@ -86,15 +86,4 @@ public class PlayerListener implements Listener
 			}
 		}
 	}
-	
-	@EventHandler
-	public void onItemHeldChange(PlayerItemHeldEvent event)
-	{
-		Player player       = event.getPlayer();
-		Inventory inventory = player.getInventory();
-		ItemStack item      = inventory.getItem(event.getNewSlot());
-		
-		MobilePhoneManager phoneManager = CivChat.getInstance().getMobilePhoneManager();
-		phoneManager.announcePhone(player, item);
-	}
 }
