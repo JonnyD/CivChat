@@ -42,7 +42,6 @@ public class ChatListener implements Listener
 						recipients.add(p);
 					}
 				}
-				
 			}
 		}
 		
