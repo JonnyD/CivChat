@@ -11,9 +11,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 import net.minecraft.server.v1_4_R1.Item;
 
 import civchat.command.CommandHandler;
+import civchat.command.commands.ConnectCommand;
 import civchat.command.commands.CreateAntenna;
 import civchat.command.commands.CreateNetworkCommand;
 import civchat.command.commands.CreatePhone;
+import civchat.command.commands.ScanCommand;
 import civchat.command.commands.SetNetworkCommand;
 import civchat.listener.BlockListener;
 import civchat.listener.ChatListener;
@@ -50,6 +52,7 @@ public class CivChat extends JavaPlugin
 		registerCommands();
 		registerEvents();
 		
+		//This prevents phones from stacking upon each other
 		try {
 			Method method = Item.class.getDeclaredMethod("a", boolean.class);
 			if (method.getReturnType() == Item.class) {
@@ -88,6 +91,8 @@ public class CivChat extends JavaPlugin
 		commandHandler.addCommand(new CreateNetworkCommand());
 		commandHandler.addCommand(new SetNetworkCommand());
 		commandHandler.addCommand(new CreatePhone());
+		commandHandler.addCommand(new ScanCommand());
+		commandHandler.addCommand(new ConnectCommand());
 	}	
 	
 	public void registerEvents()

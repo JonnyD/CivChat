@@ -5,10 +5,9 @@ description: Realistic Chat
 author: Gu3rr1lla
 database: false
 commands:
-  ccantenna:
-    aliases: cca
+  createantenna:
     description: List the possible reinforcement materials, their strengths, and requirements.
-    usage: /ccantenna
+    usage: /createantenna <network>
   ccnetwork:
     description: Create a network
     usage: /ccnetwork
@@ -18,3 +17,9 @@ commands:
   createphone:
     description: Create phone
     usage: /createphone <network>
+  scan:
+    description: Scan Networks
+    usage: /scan
+  connect:
+    description: Connect to a network
+    usage: /connect <network>
