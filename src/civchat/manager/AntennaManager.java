@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import civchat.CivChat;
 import civchat.model.Antenna;
 import civchat.model.CivPlayer;
+import civchat.model.Network;
 
 public class AntennaManager 
 {
@@ -33,14 +34,15 @@ public class AntennaManager
 	 * @param player
 	 * @param location
 	 */
-	public void recordAntennaPlace(Player player, Location location)
+	public void recordAntennaPlace(Player player, Network network, Location location)
 	{
 		int x             = (int) location.getX();
 		int y             = (int) location.getY();
 		int z             = (int) location.getZ();
 		String world      = location.getWorld().getName();
 		String playerName = player.getDisplayName();
-		Antenna antenna   = new Antenna(x, y, z, world, playerName);
+		int networkId     = network.getId();
+		Antenna antenna   = new Antenna(x, y, z, world, playerName, networkId);
 		storageManager.insertAntenna(antenna);
 	}
 	
