@@ -27,4 +27,13 @@ public class ItemListener implements Listener
 		MobilePhoneManager phoneManager = plugin.getMobilePhoneManager();
 		phoneManager.announcePhone(player, item);
 	}
+	
+	@EventHandler
+	public void onItemDespawnEvent(ItemDespawnEvent event)
+	{
+		ItemStack itemStack = event.getEntity().getItemStack();
+		int id = itemStack.getDurability();
+		MobilePhoneManager phoneManager = plugin.getMobilePhoneManager();
+		phoneManager.deleteMobilePhone(id);		
+	}
 }
