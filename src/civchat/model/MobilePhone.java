@@ -16,6 +16,11 @@ public class MobilePhone
 		OWNER
 	}
 	
+	public MobilePhone(String owner)
+	{
+		this.owner = owner;
+	}
+	
 	public MobilePhone(int networkId, String owner)
 	{
 		this.networkId = networkId;
@@ -35,6 +40,7 @@ public class MobilePhone
 
 	public void setNetworkId(int networkId) {
 		this.networkId = networkId;
+		this.dirty.add(DirtyMobilePhoneReason.NETWORK);
 	}
 
 	public String getOwner() {
