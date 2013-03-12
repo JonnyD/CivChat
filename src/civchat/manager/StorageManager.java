@@ -74,8 +74,8 @@ public class StorageManager
 
 	public void insertAntenna(Antenna antenna)
 	{
-		String query  = "INSERT INTO `cc_antenna` (`x`, `y`, `z`, `world`, `owner`)";
-		String values = "VALUES (" + antenna.getX() + ", " + antenna.getY() + ", " + antenna.getZ() + ", '" + antenna.getWorld() + "', '" + antenna.getOwner() + "')";	
+		String query  = "INSERT INTO `cc_antenna` (`x`, `y`, `z`, `world`, `owner`, `network_id`)";
+		String values = "VALUES (" + antenna.getX() + ", " + antenna.getY() + ", " + antenna.getZ() + ", '" + antenna.getWorld() + "', '" + antenna.getOwner() + "', " + antenna.getNetworkId() + ")";	
 
 		synchronized (this)
 		{
@@ -262,8 +262,8 @@ public class StorageManager
 
 	public int insertMobilePhone(MobilePhone phone)
 	{
-		String query  = "INSERT INTO `cc_handset` (`network_id`, `owner`)";
-		String values = "VALUES (" + phone.getNetworkId() + ", '" + phone.getOwner() + "')";
+		String query  = "INSERT INTO `cc_handset` (`owner`)";
+		String values = "VALUES ('" + phone.getOwner() + "')";
 		
 		int id = 0;
 		
@@ -286,9 +286,11 @@ public class StorageManager
 
 		if(!subQuery.isEmpty())
 		{
-			String query = "UPDATE `cc_handset` SET " + Utility.stripTrailingComma(subQuery) + " WHERE owner = " + phone.getOwner();
+			String query = "UPDATE `cc_handset` SET " + Utility.stripTrailingComma(subQuery) + " WHERE id = " + phone.getId();
 			db.execute(query);
 		}
+		
+		phone.clearDirty();
 	}
 
 	public MobilePhone findMobilePhoneByOwner(String o)
