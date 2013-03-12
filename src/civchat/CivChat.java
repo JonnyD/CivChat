@@ -1,11 +1,14 @@
 package civchat;
 
+import java.lang.reflect.Method;
 import java.util.logging.Logger;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import net.minecraft.server.v1_4_R1.Item;
 
 import civchat.command.CommandHandler;
 import civchat.command.commands.CreateAntenna;
@@ -46,6 +49,16 @@ public class CivChat extends JavaPlugin
 		
 		registerCommands();
 		registerEvents();
+		
+		try {
+			Method method = Item.class.getDeclaredMethod("a", boolean.class);
+			if (method.getReturnType() == Item.class) {
+				method.setAccessible(true);
+				method.invoke(Item.COMPASS, true);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		log.info("CivChat has been enabled.");
 	}
