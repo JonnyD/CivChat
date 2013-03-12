@@ -61,7 +61,7 @@ public class PlayerListener implements Listener
 
 				if(canBeAntenna)
 				{
-					Location location = antennaManager.findLocation(clickedBlock);
+					Location location = antennaManager.findLocationOfBase(clickedBlock);
 					Boolean isAntenna = antennaManager.isAntenna(location);
 
 					switch(mode)
@@ -69,7 +69,7 @@ public class PlayerListener implements Listener
 					case CREATE_ANTENNA:
 						if(!isAntenna)
 						{
-							antennaManager.recordAntennaPlace(player, location);
+							antennaManager.recordAntennaPlace(player, civPlayer.getNetwork(), location);
 						}
 						break;
 					case SET_NETWORK:
