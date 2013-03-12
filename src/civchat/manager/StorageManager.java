@@ -361,4 +361,14 @@ public class StorageManager
 
 		return mobilePhone;
 	}
+	
+	public void deleteMobilePhone(int id)
+	{
+		String query = "DELETE FROM cc_handset WHERE Id = " + id;
+		
+		synchronized (this)
+		{
+			db.delete(query);
+		}
+	}
 }

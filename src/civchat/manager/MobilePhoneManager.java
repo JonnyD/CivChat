@@ -44,6 +44,16 @@ public class MobilePhoneManager
 		storageManager.updateMobilePhone(phone);
 	}
 	
+	public void deleteMobilePhone(MobilePhone phone)
+	{
+		deleteMobilePhone(phone.getId());
+	}
+	
+	public void deleteMobilePhone(int id)
+	{
+		
+	}
+	
 	/**
 	 * Checks if material the player is holding is the material
 	 * required to be a mobile phone
