@@ -1,10 +1,13 @@
 package civchat.manager;
 
+import java.util.Map.Entry;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 import civchat.CivChat;
 import civchat.model.MobilePhone;
@@ -26,16 +29,19 @@ public class MobilePhoneManager
 	/**
 	 * Adds a new mobile phone to storage
 	 * 
-	 * @param network
 	 * @param player
 	 * @return row id integer
 	 */
-	public int recordMobilePhone(Network network, Player player)
+	public int recordMobilePhone(Player player)
 	{
-		int networkId     = network.getId();
 		String playerName = player.getDisplayName();
-		MobilePhone phone = new MobilePhone(networkId, playerName);
+		MobilePhone phone = new MobilePhone(playerName);
 		return storageManager.insertMobilePhone(phone);
+	}
+	
+	public void updateMobilePhone(MobilePhone phone)
+	{
+		storageManager.updateMobilePhone(phone);
 	}
 	
 	/**
@@ -47,15 +53,35 @@ public class MobilePhoneManager
 	 */
 	public boolean hasMobilePhoneMaterial(Player player)
 	{
-		ItemStack[] inventory = player.getInventory().getContents();
+		return hasMobilePhoneMaterial(player.getInventory().getContents());
+	}
+	
+	public boolean hasMobilePhoneMaterial(ItemStack[] inventory)
+	{
 		for(ItemStack item : inventory)
 		{
-			//Todo: Material.COMPASS should be referenced from config
-			if(item.getType() == Material.COMPASS)
+			if(item != null)
 			{
-				return true;
+				//Todo: Material.COMPASS should be referenced from config
+				if(item.getType() == Material.COMPASS)
+				{
+					return true;
+				}
 			}
 		}
+		return false;
+	}
+	
+	public boolean hasMobilePhoneMaterialInHand(Player player)
+	{
+		PlayerInventory inventory = player.getInventory();
+		Material itemInHand       = inventory.getItemInHand().getType();
+		
+		if(itemInHand == Material.COMPASS)
+		{
+			return true;
+		}
+		
 		return false;
 	}
 	
@@ -116,6 +142,47 @@ public class MobilePhoneManager
 			{
 				player.sendMessage(ChatColor.GREEN+"Phone - " + phone.toString());
 			}
+		}
+	}
+	
+	public void createPhone(Player player)
+	{
+		PlayerInventory inventory = player.getInventory();
+		
+		if(!hasMobilePhoneMaterial(inventory.getContents()))
+		{
+			player.sendMessage("You need a compass to create a phone");
+			return;
+		}
+		
+		ItemStack stack = inventory.getItemInHand();
+		int stackNum = inventory.getHeldItemSlot();
+		
+		int phoneNum = 1;
+		if(stack.getAmount() == 1)
+		{
+			phoneNum = stackNum;
+		}
+		else
+		{
+			phoneNum = inventory.firstEmpty();
+			if(phoneNum > 0)
+			{
+				stack.setAmount(stack.getAmount() - 1);
+				inventory.setItem(stackNum, stack);
+			}
+			else 
+			{
+				phoneNum = stackNum;
+			}
+		}
+		
+		int id = recordMobilePhone(player);
+		if(id > 0)
+		{
+			ItemStack newStack = new ItemStack(Material.COMPASS, 1, (short) id);
+			inventory.setItem(phoneNum, new ItemStack(newStack));
+			player.sendMessage("Phone created");
 		}
 	}
 }
