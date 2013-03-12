@@ -22,13 +22,14 @@ public class Antenna
 		DAMAGED
 	}
 	
-	public Antenna(int x, int y, int z, String world, String owner)
+	public Antenna(int x, int y, int z, String world, String owner, int networkId)
 	{
-		this.x     = x;
-		this.y     = y;
-		this.z     = z;
-		this.world = world;
-		this.owner = owner;
+		this.x         = x;
+		this.y         = y;
+		this.z         = z;
+		this.world     = world;
+		this.owner     = owner;
+		this.networkId = networkId;
 	}
 	
 	public Antenna(int id, int x, int y, int z, String world, String owner, boolean damaged)
@@ -42,16 +43,26 @@ public class Antenna
 		this.damaged = damaged;
 	}
 	
+	public Antenna(int id, int x, int y, int z, String world, String owner, int networkId)
+	{
+		this.id        = id;
+		this.x         = x;
+		this.y         = y;
+		this.z         = z;
+		this.world     = world;
+		this.networkId = networkId;
+	}
+	
 	public Antenna(int id, int x, int y, int z, String world, String owner, boolean damaged, int networkId)
 	{
-		this.id      = id;
-		this.x       = x;
-		this.y       = y;
-		this.z       = z;
-		this.world   = world;
-		this.owner   = owner;
+		this.id        = id;
+		this.x         = x;
+		this.y         = y;
+		this.z         = z;
+		this.world     = world;
+		this.owner     = owner;
 		this.networkId = networkId;
-		this.damaged = damaged;
+		this.damaged   = damaged;
 	}
 	
 	public int getId()
