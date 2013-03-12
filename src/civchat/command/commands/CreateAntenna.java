@@ -3,9 +3,11 @@ package civchat.command.commands;
 import org.bukkit.command.CommandSender;
 
 import civchat.command.PlayerCommand;
+import civchat.manager.NetworkManager;
 import civchat.manager.PlayerManager;
 import civchat.model.CivPlayer;
 import civchat.model.Mode;
+import civchat.model.Network;
 
 public class CreateAntenna extends PlayerCommand
 {
@@ -14,31 +16,33 @@ public class CreateAntenna extends PlayerCommand
 	{
 		super("Create Antenna");
 		setDescription("Creates an antenna");
-		setUsage("/ccantenna");
-		setArgumentRange(0,0);
-		setIdentifier("ccantenna");
+		setUsage("/createantenna <network>");
+		setArgumentRange(1,1);
+		setIdentifier("createantenna");
 	}
 
 	@Override
 	public boolean execute(CommandSender sender, String[] args) 
 	{
 		String playerName = sender.getName();
+		String networkName = args[0];
+		
+		NetworkManager networkManager = plugin.getNetworkManager();
+		Network network = networkManager.getNetwork(networkName);
+		
+		if(network == null)
+		{
+			sender.sendMessage("Network doesn't exist");
+			return true;
+		}
 		
 		PlayerManager playerManager = PlayerManager.getInstance();
 		CivPlayer civPlayer = playerManager.getCivPlayer(playerName);
 		
-		Mode mode = civPlayer.getMode();
-		if(mode == Mode.CREATE_ANTENNA)
-		{
-			civPlayer.reset();
-			sender.sendMessage("Antenna Creation Mode Off");
-		}
-		else 
-		{
-			civPlayer.setMode(Mode.CREATE_ANTENNA);
-			sender.sendMessage("Antenna Creation Mode On");
-		}
+		civPlayer.setMode(Mode.CREATE_ANTENNA);
+		civPlayer.setNetwork(network);
 		
+		sender.sendMessage("Antenna Creation Mode On");
 		return true;
 	}
 }
